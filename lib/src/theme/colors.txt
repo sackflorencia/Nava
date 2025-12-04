@@ -1,0 +1,9 @@
+| Nombre             | HEX       | RGB             | Uso                       |
+| ------------------ | --------- | --------------- | ------------------------- |
+| Azul brillante     | #1E5AFF | (30, 90, 255)   | Primario                  |
+| Celeste suave      | #CFE6FF | (207, 230, 255) | Fondo / tarjetas          |
+| Amarillo faro      | #FFD85E | (255, 216, 94)  | CTA / highlight           |
+| Blanco             | #FFFFFF | (255, 255, 255) | Fondo general             |
+| Gris azulado suave | #EEF3FF | (238, 243, 255) | Fondo sutil / separadores |
+| Gris oscuro        | #2C2C2C | (44, 44, 44)    | Texto principal           |
+| Gris medio         | #6B6B6B | (107, 107, 107) | Texto secundario          |
