@@ -3,9 +3,14 @@ import 'package:nava/src/widgets/personalized_elevated_button.dart';
 import 'package:nava/src/widgets/personalized_outlined_button.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class Account extends StatelessWidget {
+class Account extends StatefulWidget {
   const Account({super.key});
 
+  @override
+  State<Account> createState() => _AccountState();
+}
+
+class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -13,21 +18,21 @@ class Account extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text(
+            Text(
               "¡Bienvenido a Nava!",
               style: TextStyle(
                 fontSize: 32,
                 fontWeight: FontWeight.w700,
-                color: Color.fromRGBO(44, 44, 44, 1),
+                color: Theme.of(context).colorScheme.onSurface,
               ),
             ),
             SizedBox(height:15),
-            const Text(
+            Text(
               "Navegá tus objetivos",
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w500,
-                color: Color.fromRGBO(107, 107, 107, 1),
+                color: Theme.of(context).colorScheme.onSurfaceVariant,
               ),
             ),
             SizedBox(height:40),
@@ -41,7 +46,7 @@ class Account extends StatelessWidget {
             ),
             SizedBox(height:40),
             PersonalizedElevatedButton(
-              color: Color.fromRGBO(255, 216, 94, 1),
+              color: Theme.of(context).colorScheme.secondary,
               text: 'Sign up',
               onPressed: () {
                 Fluttertoast.showToast(

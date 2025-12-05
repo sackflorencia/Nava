@@ -15,14 +15,15 @@ class PersonalizedOutlinedButton extends StatelessWidget {
     return OutlinedButton(
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
-        foregroundColor: Color.fromRGBO(44, 44, 44, 1),
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         minimumSize: Size(200, 60),
         textStyle: TextStyle(
           fontSize: 20,
           fontWeight: FontWeight.w400
         ),
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        side: BorderSide(color: Color.fromRGBO(207, 230, 255, 1), width: 2),
+        side: BorderSide(width: 2,color: Theme.of(context).colorScheme.surfaceContainerHighest
+        ),
       ),
       child: Text(text),
     );

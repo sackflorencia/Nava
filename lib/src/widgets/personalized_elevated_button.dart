@@ -21,9 +21,8 @@ class PersonalizedElevatedButton extends StatelessWidget {
         minimumSize: Size(200, 60),
         textStyle: TextStyle(fontSize: 20,
           fontWeight: FontWeight.w400,
-          color: Color.fromRGBO(44, 44, 44, 1)
         ),
-        foregroundColor: Color.fromRGBO(44, 44, 44, 1)
+        foregroundColor: Theme.of(context).colorScheme.onSecondary
       ),
       child: Text(text),
     );

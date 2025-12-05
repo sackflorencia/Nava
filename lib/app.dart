@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/screens/account.dart';
+import 'package:nava/src/theme/app_theme.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -8,6 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: AppTheme.lightTheme,
       home: Account(),  
     );
   }
