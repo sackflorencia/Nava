@@ -3,7 +3,6 @@
 
 Nava es una aplicación diseñada para acompañar a las personas en sus objetivos personales de una forma simple, flexible y humana. Parte de un problema real: no todos los días tenemos la misma energía, motivación o claridad mental. Por eso Nava propone un sistema que se adapta a vos, no al revés.
 
----
 
 ## 🚀 Características principales
 
@@ -23,19 +22,13 @@ Nava es una aplicación diseñada para acompañar a las personas en sus objetivo
 - Registro suave del avance sin presión.  
 - Estadísticas simples que muestran constancia, no perfección.
 
----
-
 ## 🧭 Filosofía detrás del proyecto
 
 Nava nace de la necesidad de una herramienta realista y amable, que te acompañe sin exigencias imposibles. En vez de forzar productividad, Nava respeta los ritmos personales y sugiere el tipo óptimo de actividades según el nivel de energía diario.
 
 **La idea:** _"No importa cuánto avances, sino que puedas avanzar hoy."_
 
----
-
 ## 🛠️ Tecnologías utilizadas
 - **Flutter** – desarrollo multiplataforma
 - **Dart** – lógica de la aplicación  
 - **Firebase** – base de datos, auth y almacenamiento 
-- **Dart** – lógica de la aplicación  
-- **Firebase** – base de datos, auth y almacenamiento  
