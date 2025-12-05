@@ -7,7 +7,6 @@ import 'package:nava/src/widgets/personalized_outlined_button.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});
-
   @override
   State<Account> createState() => _AccountState();
 }
@@ -175,16 +174,13 @@ class _AccountState extends State<Account> {
     String password = passwordController.text;
     String password2 = confirmPasswordController.text;
 
-    if (email.isEmpty || password.isEmpty) {
-      Fluttertoast.showToast(msg: "Por favor ingrese el email y la contraseña");
+    if (email.isEmpty || password.isEmpty || password2.isEmpty) {
+      Fluttertoast.showToast(msg: "Por favor ingrese el email y ambas contraseñas");
       return;
-    }
-    if (password != password2) {
+    } else if (password != password2) {
       Fluttertoast.showToast(msg: "Las contraseñas no coinciden");
       return;
-    }
-
-    if (!userSignIns.any((user) => user.email == email)) {
+    } else if (!userSignIns.any((user) => user.email == email)) {
       userSignIns.add(UserSignInfo(email: email, password: password));
       Navigator.push(
         context,

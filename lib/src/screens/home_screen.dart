@@ -7,6 +7,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Image.asset('assets/images/logo/logo-nava-gris-claro.png'),
         title: const Text("Home"),
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
