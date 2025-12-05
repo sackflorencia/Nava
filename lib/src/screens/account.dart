@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nava/src/screens/home_screen.dart';
 import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/personalized_elevated_button.dart';
 import 'package:nava/src/widgets/personalized_outlined_button.dart';
@@ -16,12 +17,14 @@ class _AccountState extends State<Account> {
   late bool showSignUp = false;
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  late TextEditingController confirmPasswordController;
 
   @override
   void initState() {
     super.initState();
     emailController = TextEditingController();
     passwordController = TextEditingController();
+    confirmPasswordController = TextEditingController();
   }
 
   @override
@@ -64,6 +67,9 @@ class _AccountState extends State<Account> {
                   setState(() {
                     showSignIn = true;
                     showSignUp = false;
+                    emailController.text = "";
+                    passwordController.text = "";
+                    confirmPasswordController.text = "";
                   });
                 },
               ),
@@ -75,6 +81,9 @@ class _AccountState extends State<Account> {
                   setState(() {
                     showSignIn = false;
                     showSignUp = true;
+                    emailController.text = "";
+                    confirmPasswordController.text = "";
+                    passwordController.text = "";
                   });
                 },
               ),
@@ -92,14 +101,15 @@ class _AccountState extends State<Account> {
     return Column(
       children: [
         LittleTextField(hintText: 'Email', controller: emailController),
+        const SizedBox(height: 15),
         LittleTextField(
-          hintText: 'Password',
+          hintText: 'Contraseña',
           obscureText: true,
           controller: passwordController,
         ),
-        PersonalizedElevatedButton(
-          color: Theme.of(context).colorScheme.primary,
-          text: 'Submit',
+        const SizedBox(height: 15),
+        PersonalizedOutlinedButton(
+          text: 'Enviar',
           onPressed: () => _handleSignIn(emailController, passwordController),
         ),
       ],
@@ -110,15 +120,22 @@ class _AccountState extends State<Account> {
     return Column(
       children: [
         LittleTextField(hintText: 'Email', controller: emailController),
+        const SizedBox(height: 15),
         LittleTextField(
-          hintText: 'Password',
+          hintText: 'Contraseña',
           obscureText: true,
           controller: passwordController,
         ),
-        PersonalizedElevatedButton(
-          color: Theme.of(context).colorScheme.primary,
-          text: 'Submit',
-          onPressed: () => _handleSignUp(emailController, passwordController),
+        const SizedBox(height: 15),
+        LittleTextField(
+          hintText: 'Reingrese la contraseña',
+          obscureText: true,
+          controller: confirmPasswordController,
+        ),
+        const SizedBox(height: 15),
+        PersonalizedOutlinedButton(
+          text: 'Enviar',
+          onPressed: () => _handleSignUp(emailController, passwordController, confirmPasswordController),
         ),
       ],
     );
@@ -132,38 +149,50 @@ class _AccountState extends State<Account> {
     String password = passwordController.text;
 
     if (email.isEmpty || password.isEmpty) {
-      Fluttertoast.showToast(msg: "Please enter both email and password");
+      Fluttertoast.showToast(msg: "Por favor ingrese el email y la contraseña");
       return;
     }
 
     if (userSignIns.any(
       (user) => user.email == email && user.password == password,
     )) {
-      Fluttertoast.showToast(msg: "Successfully signed in");
-      //TODO: Navigate to home screen
+      Fluttertoast.showToast(msg: "Ingreso exitoso");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
     } else {
-      Fluttertoast.showToast(msg: "Invalid email or password");
+      Fluttertoast.showToast(msg: "Email o contraseña no válidos");
     }
   }
 
   void _handleSignUp(
     TextEditingController emailController,
     TextEditingController passwordController,
+    TextEditingController confirmPasswordController,
   ) {
     String email = emailController.text;
     String password = passwordController.text;
+    String password2 = confirmPasswordController.text;
 
     if (email.isEmpty || password.isEmpty) {
-      Fluttertoast.showToast(msg: "Please enter both email and password");
+      Fluttertoast.showToast(msg: "Por favor ingrese el email y la contraseña");
+      return;
+    }
+    if (password != password2) {
+      Fluttertoast.showToast(msg: "Las contraseñas no coinciden");
       return;
     }
 
     if (!userSignIns.any((user) => user.email == email)) {
       userSignIns.add(UserSignInfo(email: email, password: password));
-      //TODO: Navigate to home screen
-      Fluttertoast.showToast(msg: "Successfully signed up");
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      );
+      Fluttertoast.showToast(msg: "Ingreso exitoso");
     } else {
-      Fluttertoast.showToast(msg: "Email already in use");
+      Fluttertoast.showToast(msg: "El email ya está en uso");
     }
   }
 }
