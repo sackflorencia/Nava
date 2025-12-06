@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nava/src/widgets/nava_app_bar.dart';
 
 class HomeScreen extends StatelessWidget {
   final String email;
@@ -7,12 +8,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: Image.asset('assets/images/logo/logo-nava-gris-claro.png'),
-        title: const Text("Home"),
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        elevation: 0,
-      ),
+      appBar: NavaAppBar(),
       body: Center(
         child: Text(
           "Hola, $email",
