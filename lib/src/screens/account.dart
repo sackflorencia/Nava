@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:nava/src/screens/home_screen.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/personalized_elevated_button.dart';
 import 'package:nava/src/widgets/personalized_outlined_button.dart';
@@ -36,60 +36,62 @@ class _AccountState extends State<Account> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "¡Bienvenido a Nava!",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w700,
-                  color: Theme.of(context).colorScheme.onSurface,
+      body: Container(
+        alignment: Alignment.bottomCenter,
+        decoration: const BoxDecoration(
+          image: DecorationImage(image: AssetImage('assets/images/app-images/account_background.jpg'),
+          fit: BoxFit.cover),
+        ),
+        
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'N\na\nv\na',
+                  style: TextStyle(
+                    fontSize: 150,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: 'Vaughan',
+                    color: Theme.of(context).colorScheme.onSurface,
+                    height: 0.7,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 15),
-              Text(
-                "Navegá tus objetivos",
-                style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w500,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+                const SizedBox(height: 30),
+                PersonalizedOutlinedButton(
+                  text: 'Sign in',
+                  foregroundColor: Theme.of(context).colorScheme.surface,
+                  onPressed: () {
+                    setState(() {
+                      showSignIn = true;
+                      showSignUp = false;
+                      emailController.text = "";
+                      passwordController.text = "";
+                      confirmPasswordController.text = "";
+                    });
+                  },
                 ),
-              ),
-              const SizedBox(height: 40),
-              PersonalizedOutlinedButton(
-                text: 'Sign in',
-                onPressed: () {
-                  setState(() {
-                    showSignIn = true;
-                    showSignUp = false;
-                    emailController.text = "";
-                    passwordController.text = "";
-                    confirmPasswordController.text = "";
-                  });
-                },
-              ),
-              const SizedBox(height: 40),
-              PersonalizedElevatedButton(
-                color: Theme.of(context).colorScheme.secondary,
-                text: 'Sign up',
-                onPressed: () {
-                  setState(() {
-                    showSignIn = false;
-                    showSignUp = true;
-                    emailController.text = "";
-                    confirmPasswordController.text = "";
-                    passwordController.text = "";
-                  });
-                },
-              ),
-              const SizedBox(height: 30),
-              if (showSignIn) _buildSignInForm(),
-              if (showSignUp) _buildSignupForm(),
-            ],
+                const SizedBox(height: 10),
+                PersonalizedElevatedButton(
+                  color: Theme.of(context).colorScheme.secondary,
+                  text: 'Sign up',
+                  onPressed: () {
+                    setState(() {
+                      showSignIn = false;
+                      showSignUp = true;
+                      emailController.text = "";
+                      confirmPasswordController.text = "";
+                      passwordController.text = "";
+                    });
+                  },
+                ),
+                const SizedBox(height: 30),
+                if (showSignIn) _buildSignInForm(),
+                if (showSignUp) _buildSignupForm(),
+              ],
+            ),
           ),
         ),
       ),
@@ -99,15 +101,17 @@ class _AccountState extends State<Account> {
   Widget _buildSignInForm() {
     return Column(
       children: [
-        LittleTextField(hintText: 'Email', controller: emailController),
+        LittleTextField(hintText: 'Email', controller: emailController, color: Theme.of(context).colorScheme.surfaceContainerHighest),
         const SizedBox(height: 15),
         LittleTextField(
           hintText: 'Contraseña',
           obscureText: true,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           controller: passwordController,
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         PersonalizedOutlinedButton(
+          foregroundColor: Theme.of(context).colorScheme.surface,
           text: 'Enviar',
           onPressed: () => _handleSignIn(emailController, passwordController),
         ),
@@ -118,21 +122,24 @@ class _AccountState extends State<Account> {
   Widget _buildSignupForm() {
     return Column(
       children: [
-        LittleTextField(hintText: 'Email', controller: emailController),
+        LittleTextField(hintText: 'Email', controller: emailController, color: Theme.of(context).colorScheme.surfaceContainerHighest),
         const SizedBox(height: 15),
         LittleTextField(
           hintText: 'Contraseña',
           obscureText: true,
           controller: passwordController,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest
         ),
         const SizedBox(height: 15),
         LittleTextField(
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
           hintText: 'Reingrese la contraseña',
           obscureText: true,
           controller: confirmPasswordController,
         ),
         const SizedBox(height: 15),
         PersonalizedOutlinedButton(
+          foregroundColor: Theme.of(context).colorScheme.surface,
           text: 'Enviar',
           onPressed: () => _handleSignUp(emailController, passwordController, confirmPasswordController),
         ),
@@ -156,10 +163,7 @@ class _AccountState extends State<Account> {
       (user) => user.email == email && user.password == password,
     )) {
       Fluttertoast.showToast(msg: "Ingreso exitoso");
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      GoRouter.of(context).go('/home', extra: email);
     } else {
       Fluttertoast.showToast(msg: "Email o contraseña no válidos");
     }
@@ -182,10 +186,7 @@ class _AccountState extends State<Account> {
       return;
     } else if (!userSignIns.any((user) => user.email == email)) {
       userSignIns.add(UserSignInfo(email: email, password: password));
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
+      GoRouter.of(context).go('/home', extra: email);
       Fluttertoast.showToast(msg: "Ingreso exitoso");
     } else {
       Fluttertoast.showToast(msg: "El email ya está en uso");
@@ -196,7 +197,6 @@ class _AccountState extends State<Account> {
 class UserSignInfo {
   final String email;
   final String password;
-
   UserSignInfo({required this.email, required this.password});
 }
 

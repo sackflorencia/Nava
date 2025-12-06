@@ -24,7 +24,15 @@ class PersonalizedElevatedButton extends StatelessWidget {
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-        minimumSize: Size(200, 60),
+        minimumSize: Size(250, 35),
+        shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(14),     
+          topRight: Radius.circular(0),     
+          bottomLeft: Radius.circular(0),   
+          bottomRight: Radius.circular(14), 
+        ),
+      ),
       ),
       child: Text(
         text,

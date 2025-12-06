@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final String email;
+  const HomeScreen({super.key, required this.email});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Center(
         child: Text(
-          "Home Screen",
+          "Hola, $email",
           style: TextStyle(
             fontSize: 24,
             color: Theme.of(context).colorScheme.onSurface,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nava/src/screens/account.dart';
+import 'package:nava/src/routes/router.dart';
 import 'package:nava/src/theme/app_theme.dart';
 
 class MyApp extends StatelessWidget {
@@ -7,10 +7,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: Account(),  
+      routerConfig: router, 
     );
   }
 }

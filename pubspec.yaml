@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   fluttertoast: ^9.0.0
+  go_router: ^17.0.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -64,6 +65,8 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/images/logo/logo-nava-gris-claro.png
+    - assets/images/app-images/account_background.jpg
+    - assets/images/logo/logo-nava.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -87,6 +90,12 @@ flutter:
   #       - asset: fonts/TrajanPro.ttf
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
+  
+  fonts:
+    - family: Vaughan
+      fonts:
+      -  asset: assets/fonts/Vaughan-FREE.otf
+  
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
