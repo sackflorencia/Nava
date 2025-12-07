@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/widgets/grid_goal_preview.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
@@ -22,7 +23,7 @@ class HomeScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () => GoRouter.of(context).go('/add_goal'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(
                       context,
