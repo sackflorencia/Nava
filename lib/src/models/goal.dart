@@ -1,8 +1,8 @@
-class Goals {
+class Goal {
   final String goal;
   final String currentStage;
   final int tasksLeftInStage;
-  Goals({
+  Goal({
     required this.goal,
     required this.currentStage,
     required this.tasksLeftInStage,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:nava/src/models/goals.dart';
+import 'package:nava/src/models/goal.dart';
+import 'package:nava/src/widgets/grid_goal_preview.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/navbar.dart';
 
@@ -55,7 +56,7 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            if(goals.isEmpty)
+            if (goals.isEmpty)
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
@@ -67,66 +68,7 @@ class HomeScreen extends StatelessWidget {
                   textAlign: TextAlign.center,
                 ),
               ),
-            Expanded(
-              child: GridView.builder(
-                itemCount: goals.length,
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  childAspectRatio: 1.3,
-                ),
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(14),
-                          topRight: Radius.circular(0),
-                          bottomLeft: Radius.circular(0),
-                          bottomRight: Radius.circular(14),
-                        ),
-                        border: Border.all(
-                          color: Theme.of(
-                            context,
-                          ).colorScheme.surfaceContainerHighest,
-                          width: 2,
-                        ),
-                        color: Theme.of(context)
-                            .colorScheme
-                            .surfaceContainerHighest
-                            .withValues(alpha: 0.3),
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              goals[index].goal,
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.w500,
-                                color: Theme.of(context).colorScheme.onSurface,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              'Ánimo! Quedan ${goals[index].tasksLeftInStage} tareas para finalizar la etapa "${goals[index].currentStage}"',
-                              style: TextStyle(
-                                fontSize: 15,
-                                color: Theme.of(
-                                  context,
-                                ).colorScheme.onSurfaceVariant,
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
+            GridGoalPreview(goals: goals),
           ],
         ),
       ),
@@ -134,53 +76,53 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-List<Goals> goals = [
-  Goals(
+List<Goal> goals = [
+  Goal(
     goal: 'Aprender inglés',
     tasksLeftInStage: 5,
     currentStage: 'Gramática básica',
   ),
-  Goals(
+  Goal(
     goal: 'Aprender a tocar la trompeta',
     tasksLeftInStage: 3,
     currentStage: 'Notas iniciales',
   ),
-  Goals(
+  Goal(
     goal: 'Hacer una escultura',
     tasksLeftInStage: 4,
     currentStage: 'Boceto en arcilla',
   ),
-  Goals(
+  Goal(
     goal: 'Aprender C#',
     tasksLeftInStage: 6,
     currentStage: 'Sintaxis fundamental',
   ),
-  Goals(
+  Goal(
     goal: 'Aprender a armar un cubo Rubik',
     tasksLeftInStage: 2,
     currentStage: 'Método principiante',
   ),
-  Goals(
+  Goal(
     goal: 'Aprender a cocinar sushi',
     tasksLeftInStage: 3,
     currentStage: 'Preparación del arroz',
   ),
-  Goals(
+  Goal(
     goal: 'Aprender fotografía',
     tasksLeftInStage: 5,
     currentStage: 'Manejo de cámara',
   ),
-  Goals(
+  Goal(
     goal: 'Aprender a dibujar retratos',
     tasksLeftInStage: 4,
     currentStage: 'Proporciones faciales',
   ),
-  Goals(
+  Goal(
     goal: 'Tocar una canción en piano',
     tasksLeftInStage: 2,
     currentStage: 'Práctica de acordes',
   ),
-  Goals(
+  Goal(
     goal: 'Aprender a editar videos',
     tasksLeftInStage: 3,
     currentStage: 'Timeline básico',
