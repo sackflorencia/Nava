@@ -92,7 +92,7 @@ class _AccountState extends State<Account> {
       children: [
         PersonalizedOutlinedButton(
           text: 'Sign in',
-          foregroundColor: Theme.of(context).colorScheme.onSurface,
+          foregroundColor: Theme.of(context).colorScheme.surface,
           onPressed: () {
             setState(() {
               showSignIn = true;
