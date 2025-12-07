@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/personalized_elevated_button.dart';
 import 'package:nava/src/widgets/personalized_outlined_button.dart';
+import 'package:nava/src/widgets/personalized_text_button.dart';
 
 class Account extends StatefulWidget {
   const Account({super.key});
@@ -17,6 +18,7 @@ class _AccountState extends State<Account> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late TextEditingController confirmPasswordController;
+  late TextEditingController usernameController;
 
   @override
   void initState() {
@@ -24,12 +26,15 @@ class _AccountState extends State<Account> {
     emailController = TextEditingController();
     passwordController = TextEditingController();
     confirmPasswordController = TextEditingController();
+    usernameController = TextEditingController();
   }
 
   @override
   void dispose() {
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
+    usernameController.dispose();
     super.dispose();
   }
 
@@ -39,10 +44,14 @@ class _AccountState extends State<Account> {
       body: Container(
         alignment: Alignment.bottomCenter,
         decoration: const BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/app-images/account_background.jpg'),
-          fit: BoxFit.cover),
+          image: DecorationImage(
+            image: AssetImage(
+              'assets/images/app-images/account_background.jpg',
+            ),
+            fit: BoxFit.cover,
+          ),
         ),
-        
+
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Center(
@@ -52,7 +61,7 @@ class _AccountState extends State<Account> {
                 Text(
                   'N\na\nv\na',
                   style: TextStyle(
-                    fontSize: 150,
+                    fontSize: 130,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Vaughan',
                     color: Theme.of(context).colorScheme.onSurface,
@@ -60,33 +69,7 @@ class _AccountState extends State<Account> {
                   ),
                 ),
                 const SizedBox(height: 30),
-                PersonalizedOutlinedButton(
-                  text: 'Sign in',
-                  foregroundColor: Theme.of(context).colorScheme.surface,
-                  onPressed: () {
-                    setState(() {
-                      showSignIn = true;
-                      showSignUp = false;
-                      emailController.text = "";
-                      passwordController.text = "";
-                      confirmPasswordController.text = "";
-                    });
-                  },
-                ),
-                const SizedBox(height: 10),
-                PersonalizedElevatedButton(
-                  color: Theme.of(context).colorScheme.secondary,
-                  text: 'Sign up',
-                  onPressed: () {
-                    setState(() {
-                      showSignIn = false;
-                      showSignUp = true;
-                      emailController.text = "";
-                      confirmPasswordController.text = "";
-                      passwordController.text = "";
-                    });
-                  },
-                ),
+                if(!showSignIn && !showSignUp) _buildAccountButtons(),
                 const SizedBox(height: 30),
                 if (showSignIn) _buildSignInForm(),
                 if (showSignUp) _buildSignupForm(),
@@ -98,10 +81,50 @@ class _AccountState extends State<Account> {
     );
   }
 
+  Widget _buildAccountButtons() {
+    return Column(
+      children: [
+        PersonalizedOutlinedButton(
+          text: 'Sign in',
+          foregroundColor: Theme.of(context).colorScheme.onSurface,
+          onPressed: () {
+            setState(() {
+              showSignIn = true;
+              showSignUp = false;
+              emailController.text = "";
+              passwordController.text = "";
+              confirmPasswordController.text = "";
+              usernameController.text = "";
+            });
+          },
+        ),
+        const SizedBox(height: 10),
+        PersonalizedElevatedButton(
+          color: Theme.of(context).colorScheme.secondary,
+          text: 'Sign up',
+          onPressed: () {
+            setState(() {
+              showSignIn = false;
+              showSignUp = true;
+              emailController.text = "";
+              confirmPasswordController.text = "";
+              passwordController.text = "";
+              usernameController.text = "";
+            });
+          },
+        ),
+      ],
+    );
+  }
+
   Widget _buildSignInForm() {
     return Column(
       children: [
-        LittleTextField(hintText: 'Email', controller: emailController, color: Theme.of(context).colorScheme.surfaceContainerHighest),
+        LittleTextField(
+          hintText: 'Email o username',
+          controller: emailController,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        ),
         const SizedBox(height: 15),
         LittleTextField(
           hintText: 'Contraseña',
@@ -115,6 +138,21 @@ class _AccountState extends State<Account> {
           text: 'Enviar',
           onPressed: () => _handleSignIn(emailController, passwordController),
         ),
+        const SizedBox(height: 10),
+        PersonalizedTextButton(
+          text: 'Nuevo en Nava? Sign up',
+          color: Theme.of(context).colorScheme.surface,
+          onPressed: () {
+            setState(() {
+              showSignIn = false;
+              showSignUp = true;
+              emailController.text = "";
+              confirmPasswordController.text = "";
+              passwordController.text = "";
+              usernameController.text = "";
+            });
+          },
+        ),
       ],
     );
   }
@@ -122,13 +160,23 @@ class _AccountState extends State<Account> {
   Widget _buildSignupForm() {
     return Column(
       children: [
-        LittleTextField(hintText: 'Email', controller: emailController, color: Theme.of(context).colorScheme.surfaceContainerHighest),
+        LittleTextField(
+          hintText: 'Email',
+          controller: emailController,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        ),
+        const SizedBox(height: 15),
+        LittleTextField(
+          hintText: 'Username',
+          controller: usernameController,
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        ),
         const SizedBox(height: 15),
         LittleTextField(
           hintText: 'Contraseña',
           obscureText: true,
           controller: passwordController,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
         const SizedBox(height: 15),
         LittleTextField(
@@ -141,7 +189,27 @@ class _AccountState extends State<Account> {
         PersonalizedOutlinedButton(
           foregroundColor: Theme.of(context).colorScheme.surface,
           text: 'Enviar',
-          onPressed: () => _handleSignUp(emailController, passwordController, confirmPasswordController),
+          onPressed: () => _handleSignUp(
+            emailController,
+            passwordController,
+            confirmPasswordController,
+            usernameController,
+          ),
+        ),
+        const SizedBox(height: 15),
+        PersonalizedTextButton(
+          text: 'Ya tenés una cuenta? Sign in',
+          color: Theme.of(context).colorScheme.onSurface,
+          onPressed: () {
+            setState(() {
+              showSignIn = true;
+              showSignUp = false;
+              emailController.text = "";
+              passwordController.text = "";
+              confirmPasswordController.text = "";
+              usernameController.text = "";
+            });
+          },
         ),
       ],
     );
@@ -151,19 +219,21 @@ class _AccountState extends State<Account> {
     TextEditingController emailController,
     TextEditingController passwordController,
   ) {
-    String email = emailController.text;
+    String account = emailController.text;
     String password = passwordController.text;
 
-    if (email.isEmpty || password.isEmpty) {
+    if (account.isEmpty || password.isEmpty) {
       Fluttertoast.showToast(msg: "Por favor ingrese el email y la contraseña");
       return;
     }
 
     if (userSignIns.any(
-      (user) => user.email == email && user.password == password,
+      (user) =>
+          user.email == account ||
+          user.username == account && user.password == password,
     )) {
       Fluttertoast.showToast(msg: "Ingreso exitoso");
-      GoRouter.of(context).go('/home', extra: email);
+      GoRouter.of(context).go('/home', extra: account);
     } else {
       Fluttertoast.showToast(msg: "Email o contraseña no válidos");
     }
@@ -173,23 +243,36 @@ class _AccountState extends State<Account> {
     TextEditingController emailController,
     TextEditingController passwordController,
     TextEditingController confirmPasswordController,
+    TextEditingController usernameController,
   ) {
     String email = emailController.text;
     String password = passwordController.text;
     String password2 = confirmPasswordController.text;
+    String username = usernameController.text;
 
-    if (email.isEmpty || password.isEmpty || password2.isEmpty) {
-      Fluttertoast.showToast(msg: "Por favor ingrese el email y ambas contraseñas");
+    if (email.isEmpty ||
+        password.isEmpty ||
+        password2.isEmpty ||
+        username.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Por favor ingrese el email, el username y ambas contraseñas",
+      );
       return;
     } else if (password != password2) {
       Fluttertoast.showToast(msg: "Las contraseñas no coinciden");
       return;
-    } else if (!userSignIns.any((user) => user.email == email)) {
-      userSignIns.add(UserSignInfo(email: email, password: password));
+    } else if (!userSignIns.any(
+      (user) =>
+          user.email == email &&
+          !userSignIns.any((user) => user.username == username),
+    )) {
+      userSignIns.add(
+        UserSignInfo(email: email, password: password, username: username),
+      );
       GoRouter.of(context).go('/home', extra: email);
       Fluttertoast.showToast(msg: "Ingreso exitoso");
     } else {
-      Fluttertoast.showToast(msg: "El email ya está en uso");
+      Fluttertoast.showToast(msg: "El email o el username ya están en uso");
     }
   }
 }
@@ -197,9 +280,14 @@ class _AccountState extends State<Account> {
 class UserSignInfo {
   final String email;
   final String password;
-  UserSignInfo({required this.email, required this.password});
+  final String username;
+  UserSignInfo({
+    required this.email,
+    required this.password,
+    required this.username,
+  });
 }
 
 List<UserSignInfo> userSignIns = [
-  UserSignInfo(email: 'jorge@gmail', password: '123456'),
+  UserSignInfo(email: 'jorge@gmail', password: '123456', username: 'jorgeh'),
 ];

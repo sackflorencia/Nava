@@ -52,6 +52,8 @@ class _LittleTextFieldState extends State<LittleTextField> {
               width: 2,
             ),
           ),
+          filled: true, 
+          fillColor: widget.color.withValues(alpha: 0.2),
           suffixIcon: widget.obscureText
               ? GestureDetector(
                   onTap: _togglePasswordView,

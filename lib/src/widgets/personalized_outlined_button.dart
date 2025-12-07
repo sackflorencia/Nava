@@ -32,6 +32,7 @@ class PersonalizedOutlinedButton extends StatelessWidget {
           width: 2,
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
+        backgroundColor: Theme.of(context).colorScheme.surfaceContainerHighest.withAlpha(30)
       ),
       child: Text(text),
     );
