@@ -52,13 +52,13 @@ class _AccountState extends State<Account> {
           ),
         ),
 
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(top: 80.0),
+                child: Text(
                   'N\na\nv\na',
                   style: TextStyle(
                     fontSize: 130,
@@ -68,13 +68,19 @@ class _AccountState extends State<Account> {
                     height: 0.7,
                   ),
                 ),
-                const SizedBox(height: 30),
-                if(!showSignIn && !showSignUp) _buildAccountButtons(),
-                const SizedBox(height: 30),
-                if (showSignIn) _buildSignInForm(),
-                if (showSignUp) _buildSignupForm(),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 80.0, left: 20.0, right:20.0),
+                child: Column(
+                  children: [
+                    if (!showSignIn && !showSignUp) _buildAccountButtons(),
+                    const SizedBox(height: 30),
+                    if (showSignIn) _buildSignInForm(),
+                    if (showSignUp) _buildSignupForm(),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -125,7 +131,7 @@ class _AccountState extends State<Account> {
           controller: emailController,
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         LittleTextField(
           hintText: 'Contraseña',
           obscureText: true,
@@ -165,27 +171,27 @@ class _AccountState extends State<Account> {
           controller: emailController,
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         LittleTextField(
           hintText: 'Username',
           controller: usernameController,
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         LittleTextField(
           hintText: 'Contraseña',
           obscureText: true,
           controller: passwordController,
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         LittleTextField(
           color: Theme.of(context).colorScheme.surfaceContainerHighest,
           hintText: 'Reingrese la contraseña',
           obscureText: true,
           controller: confirmPasswordController,
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         PersonalizedOutlinedButton(
           foregroundColor: Theme.of(context).colorScheme.surface,
           text: 'Enviar',
@@ -196,7 +202,7 @@ class _AccountState extends State<Account> {
             usernameController,
           ),
         ),
-        const SizedBox(height: 15),
+        const SizedBox(height: 10),
         PersonalizedTextButton(
           text: 'Ya tenés una cuenta? Sign in',
           color: Theme.of(context).colorScheme.onSurface,

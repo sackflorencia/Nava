@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
+import 'package:nava/src/widgets/navbar.dart';
 
 class HomeScreen extends StatelessWidget {
   final String email;
@@ -9,6 +10,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavaAppBar(),
+      drawer: Navbar(),
       body: Center(
         child: Text(
           "Hola, $email",
