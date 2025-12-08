@@ -20,7 +20,7 @@ class ChooseGoalTemplate extends StatelessWidget {
               style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
               textAlign: TextAlign.center,
             ),
-            ListGoalTemplate(),
+            ListGoalTemplate(goalName: goalTitle,),
           ],
         ),
       ),

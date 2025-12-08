@@ -3,7 +3,8 @@ import 'package:nava/src/models/goal_template.dart';
 import 'package:nava/src/widgets/template_list_tile.dart';
 
 class ListGoalTemplate extends StatelessWidget {
-  const ListGoalTemplate({super.key});
+  final String goalName;
+  const ListGoalTemplate({super.key, required this.goalName});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +13,7 @@ class ListGoalTemplate extends StatelessWidget {
         itemCount: goalTemplates.length,
         itemBuilder: (context, index) {
           GoalTemplate template = goalTemplates[index];
-          return TemplateListTile(template: template);
+          return TemplateListTile(template: template, goalName: goalName,);
         },
       ),
     );

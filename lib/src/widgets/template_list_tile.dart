@@ -1,17 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/goal_template.dart';
+import 'package:nava/src/widgets/confirmation_pop_up.dart';
 import 'package:string_to_icon/string_to_icon.dart';
 
 class TemplateListTile extends StatelessWidget {
   final GoalTemplate template;
-  const TemplateListTile({super.key, required this.template});
+  final String goalName;
+  const TemplateListTile({
+    super.key,
+    required this.template,
+    required this.goalName,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
-        leading: Icon(IconMapper.getIconData(template.iconName), color: Theme.of(context).colorScheme.primary,),
+        leading: Icon(
+          IconMapper.getIconData(template.iconName),
+          color: Theme.of(context).colorScheme.primary,
+        ),
         title: Text(
           template.title,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
@@ -34,7 +43,14 @@ class TemplateListTile extends StatelessWidget {
         ),
         //leading: Icon(IconData(template.iconName)),
         onTap: () {
-          // TODO: Handle template selection
+          showDialog(
+            context: context,
+            builder: (context) => ConfirmationPopUp(
+              message:
+                  '¿Estas seguro de que querés agregar el objetivo $goalName con la plantilla ${template.title}?',
+              onpressed: () {},
+            ),
+          );
         },
       ),
     );
