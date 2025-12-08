@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/screens/account.dart';
-import 'package:nava/src/screens/add_goal.dart';
+import 'package:nava/src/screens/choose_goal_template.dart';
 import 'package:nava/src/screens/home_screen.dart';
 
 final GoRouter router = GoRouter(
@@ -8,9 +8,12 @@ final GoRouter router = GoRouter(
     GoRoute(path: '/', builder: (context, state) => const Account()),
     GoRoute(
       path: '/home',
-      builder: (context, state) =>
-          HomeScreen(email: state.extra as String),
+      builder: (context, state) => HomeScreen(email: state.extra as String),
     ),
-    GoRoute(path: '/add_goal', builder: (context, state) => const AddGoal()),
+    GoRoute(
+      path: '/choose_goal_template',
+      builder: (context, state) =>
+          ChooseGoalTemplate(goalTitle: state.extra as String),
+    ),
   ],
 );

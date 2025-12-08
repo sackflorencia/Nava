@@ -41,6 +41,7 @@ class PersonalizedElevatedButton extends StatelessWidget {
           fontSize: 20,
           fontWeight: FontWeight.w400,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }

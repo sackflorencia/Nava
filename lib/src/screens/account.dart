@@ -147,7 +147,7 @@ class _AccountState extends State<Account> {
         const SizedBox(height: 10),
         PersonalizedTextButton(
           text: 'Nuevo en Nava? Sign up',
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).colorScheme.primary,
           onPressed: () {
             setState(() {
               showSignIn = false;
@@ -205,7 +205,7 @@ class _AccountState extends State<Account> {
         const SizedBox(height: 10),
         PersonalizedTextButton(
           text: 'Ya tenés una cuenta? Sign in',
-          color: Theme.of(context).colorScheme.onSurface,
+          color: Theme.of(context).colorScheme.primary,
           onPressed: () {
             setState(() {
               showSignIn = true;

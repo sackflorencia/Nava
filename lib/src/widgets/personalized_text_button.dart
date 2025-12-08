@@ -17,10 +17,17 @@ class PersonalizedTextButton extends StatelessWidget {
       onPressed: onPressed,
       style: OutlinedButton.styleFrom(
         minimumSize: Size(250, 35),
-        textStyle: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, color: color),
         padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
       ),
-      child: Text(text),
+      child: Text(
+        text,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.w500,
+          color: color,
+        ),
+        textAlign: TextAlign.center,
+      ),
     );
   }
 }

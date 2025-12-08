@@ -2,12 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/widgets/grid_goal_preview.dart';
+import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/navbar.dart';
+import 'package:nava/src/widgets/personalized_elevated_button.dart';
+import 'package:nava/src/widgets/personalized_text_button.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   final String email;
   const HomeScreen({super.key, required this.email});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late TextEditingController goalController;
+
+  @override
+  void initState() {
+    super.initState();
+    goalController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    goalController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +45,7 @@ class HomeScreen extends StatelessWidget {
                 width: double.infinity,
                 height: 60,
                 child: ElevatedButton(
-                  onPressed: () => GoRouter.of(context).go('/add_goal'),
+                  onPressed: () => openDialog(),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Theme.of(
                       context,
@@ -75,6 +97,45 @@ class HomeScreen extends StatelessWidget {
       ),
     );
   }
+
+  Future openDialog() => showDialog(
+    context: context,
+    builder: (context) => AlertDialog(
+      title: Text('Agregar objetivo'),
+      content: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          LittleTextField(
+            hintText: 'Ingrese el nombre del objetivo',
+            controller: goalController,
+          ),
+          SizedBox(height: 20),
+          PersonalizedElevatedButton(
+            color: Theme.of(context).colorScheme.surfaceContainerHighest,
+            text: 'Agregar desde una plantilla',
+            onPressed: () => GoRouter.of(context).go(
+              '/choose_goal_template',
+              extra: goalController.text,
+          ),
+          ),
+          SizedBox(height: 10),
+          PersonalizedTextButton(
+            text: 'O crear el objetivo vacío',
+            onPressed: () {},
+            color: Theme.of(context).colorScheme.onSurface,
+          ),
+        ],
+      ),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: Text('Cancelar', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400)),
+        ),
+      ],
+    ),
+  );
 }
 
 List<Goal> goals = [
