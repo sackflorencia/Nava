@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/widgets/grid_goal_preview.dart';
@@ -113,10 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
           PersonalizedElevatedButton(
             color: Theme.of(context).colorScheme.surfaceContainerHighest,
             text: 'Agregar desde una plantilla',
-            onPressed: () => GoRouter.of(context).go(
-              '/choose_goal_template',
-              extra: goalController.text,
-          ),
+            onPressed: () => _handleChoosingTemplate(goalController, context)
           ),
           SizedBox(height: 10),
           PersonalizedTextButton(
@@ -131,11 +129,24 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text('Cancelar', style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400)),
+          child: Text(
+            'Cancelar',
+            style: TextStyle(fontSize: 19, fontWeight: FontWeight.w400),
+          ),
         ),
       ],
     ),
   );
+}
+
+void _handleChoosingTemplate(TextEditingController goalController, context) {
+  if (goalController.text.isEmpty) {
+    Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
+  } else {
+    GoRouter.of(
+      context,
+    ).go('/choose_goal_template', extra: goalController.text);
+  }
 }
 
 List<Goal> goals = [

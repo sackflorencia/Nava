@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/goal_template.dart';
+import 'package:string_to_icon/string_to_icon.dart';
 
 class TemplateListTile extends StatelessWidget {
   final GoalTemplate template;
@@ -10,6 +11,7 @@ class TemplateListTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ListTile(
+        leading: Icon(IconMapper.getIconData(template.iconName), color: Theme.of(context).colorScheme.primary,),
         title: Text(
           template.title,
           style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
