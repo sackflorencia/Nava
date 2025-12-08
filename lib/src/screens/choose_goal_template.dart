@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:nava/src/widgets/list_goal_template.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/navbar.dart';
 
-class ChooseGoalTemplate extends StatelessWidget{
+class ChooseGoalTemplate extends StatelessWidget {
   final String goalTitle;
   const ChooseGoalTemplate({super.key, required this.goalTitle});
 
@@ -14,8 +15,12 @@ class ChooseGoalTemplate extends StatelessWidget{
       body: Center(
         child: Column(
           children: [
-            Text('Elegir plantilla para "$goalTitle"'),
-            Text('Aquí se mostrarán las plantillas disponibles para el objetivo "$goalTitle".'),
+            Text(
+              'Elegir plantilla para "$goalTitle"',
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+              textAlign: TextAlign.center,
+            ),
+            ListGoalTemplate(),
           ],
         ),
       ),
