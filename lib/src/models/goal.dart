@@ -7,62 +7,52 @@ class Goal {
   final int id;
   final String title;
   final String description;
-  final List<Stage> stages;
   Goal({
     required this.id,
     required this.title,
     required this.description,
-    required this.stages,
   });
 }
 
 void addGoal({GoalTemplate? goal, required String name}) {
     Goal lastGoal = currentGoals[currentGoals.length - 1];
-    int lastGoalId = lastGoal.id;
-    int lastStageId = -1;
-    int lastTaskId = -1;
-    if (lastGoal.stages != []) {
-      Stage lastStage = lastGoal.stages[lastGoal.stages.length - 1];
-      lastStageId = lastStage.id;
-      Task lastTask = lastStage.tasks[lastStage.tasks.length - 1];
-      lastTaskId = lastTask.id;
-    }
-    if (goal == null) {
+    int goalId = lastGoal.id + 1;
+    Stage lastStage = currentStages[currentStages.length - 1];
+    int stageId = lastStage.id + 1;
+    Task lastTask = currentTasks[currentTasks.length -1];
+    int taskId = lastTask.id + 1;
+    if(goal == null){
       currentGoals.add(
-        Goal(id: (lastGoalId + 1), title: name, description: "", stages: []),
+        Goal(id: (goalId), title: name, description: ""),
       );
-    } else {
-      int goalId = lastGoalId + 1;
-      int stageId = lastStageId + 1;
-      int taskId = lastTaskId + 1;
+    }else{
       currentGoals.add(
         Goal(
           id: goalId,
           title: name,
           description: goal.description,
-          stages: [
-            for (StageTemplate stage in goal.stages)
-              Stage(
-                id: stageId++,
-                idGoal: goalId,
-                title: stage.title,
-                description: stage.description,
-                order: stage.order,
-                tasks: [
-                  for (TaskTemplate task in stage.tasks)
-                    Task(
-                      id: taskId++,
-                      idStage: (stageId - 1),
-                      title: task.title,
-                      estimatedMinutes: task.estimatedMinutes,
-                      description: task.description,
-                      order: task.order,
-                      difficulty: task.difficulty,
-                    ),
-                ],
-              ),
-          ],
-        ),
+        )
       );
+      for(StageTemplate stage in goal.stages) {
+        currentStages.add(
+          Stage(
+            id: stageId++,
+            idGoal: goalId,
+            title: stage.title,
+            order: stage.order,
+          )
+        );
+        for(TaskTemplate task in stage.tasks){
+          currentTasks.add(
+            Task(
+              id:taskId++,
+              idStage: stageId -1,
+              title: task.title,
+              description: task.description,
+              order: task.order,
+            )
+          );
+        }
+      }
     }
   }

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/goal.dart';
+import 'package:nava/src/models/stage.dart';
+import 'package:nava/src/utils/get_stage_and_tasks.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/navbar.dart';
+import 'package:nava/src/widgets/stage_list_tile.dart';
 
 class GoalView extends StatelessWidget {
   final Goal goal;
@@ -9,6 +12,7 @@ class GoalView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late List<Stage> stages = getStagesByGoalId(goal.id); 
     return Scaffold(
       appBar: NavaAppBar(),
       drawer: Navbar(),
@@ -29,6 +33,14 @@ class GoalView extends StatelessWidget {
                 fontSize: 14,
               ),
             ),
+            ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: stages.length,
+              itemBuilder: (context, index) {
+                Stage stage = stages[index];
+                return StageListTile(stage: stage);
+              },
+            )
             
           ],
         ),
