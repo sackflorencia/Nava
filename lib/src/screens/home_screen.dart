@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/goal.dart';
+import 'package:nava/src/utils/current_goals.dart';
 import 'package:nava/src/widgets/grid_goal_preview.dart';
 import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
@@ -80,7 +81,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
             ),
-            if (goals.isEmpty)
+            if (currentGoals.isEmpty)
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
@@ -92,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   textAlign: TextAlign.center,
                 ),
               ),
-            GridGoalPreview(goals: goals),
+            GridGoalPreview(goals: currentGoals),
           ],
         ),
       ),
@@ -119,7 +120,7 @@ class _HomeScreenState extends State<HomeScreen> {
           SizedBox(height: 10),
           PersonalizedTextButton(
             text: 'O crear el objetivo vacío',
-            onPressed: () {},
+            onPressed: () => _handleAddingEmptyGoal(goalController, context),
             color: Theme.of(context).colorScheme.onSurface,
           ),
         ],
@@ -139,6 +140,20 @@ class _HomeScreenState extends State<HomeScreen> {
   );
 }
 
+void _handleAddingEmptyGoal(TextEditingController goalController, context){
+  if (goalController.text.isEmpty) {
+    Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
+  } else {
+    addGoal(name: goalController.text);
+    Navigator.of(context).pop();
+    GoRouter.of(
+      context,
+    ).go('/home', extra: ""); //TODO: cambiar el email cuando haga riverpod
+    goalController.text = "";
+    Fluttertoast.showToast(msg: "Ingreso exitoso!");
+  }
+}
+
 void _handleChoosingTemplate(TextEditingController goalController, context) {
   if (goalController.text.isEmpty) {
     Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
@@ -149,55 +164,3 @@ void _handleChoosingTemplate(TextEditingController goalController, context) {
   }
 }
 
-List<Goal> goals = [
-  Goal(
-    goal: 'Aprender inglés',
-    tasksLeftInStage: 5,
-    currentStage: 'Gramática básica',
-  ),
-  Goal(
-    goal: 'Aprender a tocar la trompeta',
-    tasksLeftInStage: 3,
-    currentStage: 'Notas iniciales',
-  ),
-  Goal(
-    goal: 'Hacer una escultura',
-    tasksLeftInStage: 4,
-    currentStage: 'Boceto en arcilla',
-  ),
-  Goal(
-    goal: 'Aprender C#',
-    tasksLeftInStage: 6,
-    currentStage: 'Sintaxis fundamental',
-  ),
-  Goal(
-    goal: 'Aprender a armar un cubo Rubik',
-    tasksLeftInStage: 2,
-    currentStage: 'Método principiante',
-  ),
-  Goal(
-    goal: 'Aprender a cocinar sushi',
-    tasksLeftInStage: 3,
-    currentStage: 'Preparación del arroz',
-  ),
-  Goal(
-    goal: 'Aprender fotografía',
-    tasksLeftInStage: 5,
-    currentStage: 'Manejo de cámara',
-  ),
-  Goal(
-    goal: 'Aprender a dibujar retratos',
-    tasksLeftInStage: 4,
-    currentStage: 'Proporciones faciales',
-  ),
-  Goal(
-    goal: 'Tocar una canción en piano',
-    tasksLeftInStage: 2,
-    currentStage: 'Práctica de acordes',
-  ),
-  Goal(
-    goal: 'Aprender a editar videos',
-    tasksLeftInStage: 3,
-    currentStage: 'Timeline básico',
-  ),
-];
