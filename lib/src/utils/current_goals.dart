@@ -12,7 +12,7 @@ List<Goal> currentGoals = [
 List<Stage> currentStages = [
   Stage(id: 1, idGoal: 1, title: 'Introducción', order: 1),
   Stage(id: 2, idGoal: 1, title: 'Práctica básica', order: 2),
-  Stage(id: 2, idGoal: 1, title: 'Crear rutina', order: 3),
+  Stage(id: 3, idGoal: 1, title: 'Crear rutina', order: 3),
 ];
 
 List<Task> currentTasks = [
@@ -50,6 +50,42 @@ List<Task> currentTasks = [
     description: 'Elegir un momento del día para meditar.',
     order: 1,
     estimatedMinutes: 5,
+    difficulty: 1,
+  ),
+  Task(
+    id: 5,
+    idStage: 1,
+    title: 'Leer guía corta',
+    description: 'Leer una explicación breve sobre qué es meditar.',
+    order: 3,
+    estimatedMinutes: 10,
+    difficulty: 1,
+  ),
+  Task(
+    id: 6,
+    idStage: 1,
+    title: 'Leer guía corta',
+    description: 'Leer una explicación breve sobre qué es meditar.',
+    order: 4,
+    estimatedMinutes: 10,
+    difficulty: 1,
+  ),
+  Task(
+    id: 7,
+    idStage: 1,
+    title: 'Leer guía corta',
+    description: 'Leer una explicación breve sobre qué es meditar.',
+    order: 5,
+    estimatedMinutes: 10,
+    difficulty: 1,
+  ),
+  Task(
+    id: 8,
+    idStage: 1,
+    title: 'Leer guía corta',
+    description: 'Leer una explicación breve sobre qué es meditar.',
+    order: 6,
+    estimatedMinutes: 10,
     difficulty: 1,
   ),
 ];

@@ -1,5 +1,3 @@
-import 'package:nava/src/models/task.dart';
-
 class Stage {
   final int id;
   final int idGoal;

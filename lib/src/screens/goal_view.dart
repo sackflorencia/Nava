@@ -33,13 +33,16 @@ class GoalView extends StatelessWidget {
                 fontSize: 14,
               ),
             ),
-            ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: stages.length,
-              itemBuilder: (context, index) {
-                Stage stage = stages[index];
-                return StageListTile(stage: stage);
-              },
+            SizedBox(
+              height: 600,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: stages.length,
+                itemBuilder: (context, index) {
+                  Stage stage = stages[index];
+                  return StageListTile(stage: stage);
+                },
+              ),
             )
             
           ],
