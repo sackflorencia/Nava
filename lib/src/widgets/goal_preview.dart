@@ -12,37 +12,45 @@ class GoalPreview extends StatelessWidget {
   Widget build(BuildContext context) {
     final Stage? currentStage = getCurrentStage(goal.id);
     final int tasksLeft = getTasksLeftInStage(goal.id);
-    return ListTile(
-      title: Text(
-        goal.title,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w500,
-          color: Theme.of(context).colorScheme.onSurface,
-        ),
-        textAlign: TextAlign.center,
-      ),
-      subtitle: currentStage == null
-          ? Text(
-              'Finalizada',
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        children: [
+          ListTile(
+            title: Text(
+              goal.title,
               style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            )
-          : Text(
-              'Quedan $tasksLeft tareas para finalizar la etapa "${currentStage.title}"',
-              style: TextStyle(
-                fontSize: 15,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Theme.of(context).colorScheme.onSurface,
               ),
               textAlign: TextAlign.center,
             ),
-      tileColor: Theme.of(context).colorScheme.surfaceContainerHighest, 
-      onTap: () {
-        GoRouter.of(context).go('/goal_view', extra: goal);
-      },
+            subtitle: currentStage == null
+                ? Text(
+                    'Finalizada',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  )
+                : Text(
+                    'Quedan $tasksLeft tareas para finalizar la etapa "${currentStage.title}"',
+                    style: TextStyle(
+                      fontSize: 15,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+            tileColor: Theme.of(context).colorScheme.surfaceContainerHighest, 
+            onTap: () {
+              GoRouter.of(context).go('/goal_view', extra: goal);
+            },
+          ),
+          SizedBox(height: 7,)
+        ],
+      ),
     );
   }
 }

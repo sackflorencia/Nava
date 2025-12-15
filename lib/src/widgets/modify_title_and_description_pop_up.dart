@@ -11,19 +11,33 @@ class ModifyTitleAndDescriptionPopUp extends StatelessWidget {
     super.key,
     required this.titleController,
     required this.descriptionController,
-    required this.onConfirm
+    required this.onConfirm,
   });
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: AlertDialog(
-        title: Text('Modificar título y descripción'),
+        title: Text(
+          'Modificar título y descripción',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onInverseSurface,
+          ),
+        ),
         actions: [
-          LittleTextField(hintText: 'Título', controller: titleController),
-          SizedBox(height: 10,),
-          LittleTextField(hintText: 'Descripción', controller: descriptionController),
-          SizedBox(height: 10,),
+          LittleTextField(
+            hintText: 'Título',
+            controller: titleController,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          SizedBox(height: 10),
+          LittleTextField(
+            hintText: 'Descripción',
+            controller: descriptionController,
+            color: Theme.of(context).colorScheme.secondary,
+          ),
+          SizedBox(height: 10),
           Center(
             child: PersonalizedElevatedButton(
               onPressed: onConfirm,
@@ -37,7 +51,7 @@ class ModifyTitleAndDescriptionPopUp extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               text: 'Cancelar',
-              color: Theme.of(context).colorScheme.onSurface,
+              color: Theme.of(context).colorScheme.onInverseSurface,
             ),
           ),
         ],

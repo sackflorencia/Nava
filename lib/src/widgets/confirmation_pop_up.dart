@@ -15,7 +15,13 @@ class ConfirmationPopUp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: AlertDialog(
-        title: Text(message, textAlign: TextAlign.center),
+        title: Text(
+          message,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.onInverseSurface,
+          ),
+        ),
         actions: [
           Center(
             child: PersonalizedElevatedButton(
@@ -30,7 +36,7 @@ class ConfirmationPopUp extends StatelessWidget {
                 Navigator.of(context).pop();
               },
               text: 'Cancelar',
-              color: Theme.of(context).colorScheme.onSurface,
+              color: Theme.of(context).colorScheme.onInverseSurface,
             ),
           ),
         ],

@@ -92,7 +92,7 @@ class _GoalViewState extends State<GoalView> {
                   },
                 );
               },
-              foregroundColor: Theme.of(context).colorScheme.onSurface,
+              foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
             ),
             SizedBox(height: 10,),
             SizedBox(

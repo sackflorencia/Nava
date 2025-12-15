@@ -103,25 +103,30 @@ class _HomeScreenState extends State<HomeScreen> {
   Future openDialog() => showDialog(
     context: context,
     builder: (context) => AlertDialog(
-      title: Text('Agregar objetivo'),
+      title: Text(
+        'Agregar objetivo',
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Theme.of(context).colorScheme.onInverseSurface),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           LittleTextField(
             hintText: 'Ingrese el nombre del objetivo',
             controller: goalController,
+            color: Theme.of(context).colorScheme.secondary,
           ),
           SizedBox(height: 20),
           PersonalizedElevatedButton(
             color: Theme.of(context).colorScheme.surfaceContainerHighest,
             text: 'Agregar desde una plantilla',
-            onPressed: () => _handleChoosingTemplate(goalController, context)
+            onPressed: () => _handleChoosingTemplate(goalController, context),
           ),
           SizedBox(height: 10),
           PersonalizedTextButton(
             text: 'O crear el objetivo vacío',
             onPressed: () => _handleAddingEmptyGoal(goalController, context),
-            color: Theme.of(context).colorScheme.onSurface,
+            color: Theme.of(context).colorScheme.onInverseSurface,
           ),
         ],
       ),
@@ -140,7 +145,7 @@ class _HomeScreenState extends State<HomeScreen> {
   );
 }
 
-void _handleAddingEmptyGoal(TextEditingController goalController, context){
+void _handleAddingEmptyGoal(TextEditingController goalController, context) {
   if (goalController.text.isEmpty) {
     Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
   } else {
@@ -163,4 +168,3 @@ void _handleChoosingTemplate(TextEditingController goalController, context) {
     ).go('/choose_goal_template', extra: goalController.text);
   }
 }
-
