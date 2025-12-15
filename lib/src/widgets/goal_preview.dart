@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/goal.dart';
+import 'package:nava/src/models/stage.dart';
+import 'package:nava/src/utils/get_tasks_left_in_stage.dart';
 
 class GoalPreview extends StatelessWidget {
   final Goal goal;
@@ -8,6 +10,10 @@ class GoalPreview extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    late Stage? currentStage;
+    currentStage = getCurrentStage(goal.id);
+    late int tasksLeft;
+    tasksLeft = getTasksLeftInStage(goal.id);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ElevatedButton(
@@ -46,16 +52,24 @@ class GoalPreview extends StatelessWidget {
                 ),
                 textAlign: TextAlign.center,
               ),
-              Text(
-                //'Ánimo! Quedan ${goal.tasksLeftInStage} tareas para finalizar la etapa "${goal.currentStage}"',
-                //TODO: Crear una funcion que me diga cuantas tasks hay left in stage y la current stage
-                'Hola',
-                style: TextStyle(
-                  fontSize: 15,
-                  color: Theme.of(context).colorScheme.onSurfaceVariant,
+              if (currentStage == null)
+                Text(
+                  'Finalizada',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
-              ),
+              if (currentStage != null)
+                Text(
+                  'Ánimo! Quedan $tasksLeft tareas para finalizar la etapa "${currentStage.title}"',
+                  style: TextStyle(
+                    fontSize: 15,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
             ],
           ),
         ),

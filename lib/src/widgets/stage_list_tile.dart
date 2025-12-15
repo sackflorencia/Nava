@@ -17,9 +17,14 @@ class StageListTile extends StatelessWidget{
       child: Column(
         children: [
           Text(
-            stage.title
+            stage.title,
+            style: TextStyle(
+              fontSize: 19,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).colorScheme.onSurface,
+            )
           ),
-          SizedBox(height: 10,),
+          SizedBox(height: 10),
           Expanded(child: TasksList(tasks: getTasksByStageId(stage.id)))
         ],
       ),

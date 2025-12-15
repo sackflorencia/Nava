@@ -1,3 +1,4 @@
+import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/utils/current_goals.dart';
@@ -13,7 +14,7 @@ List<Stage> getStagesByGoalId(int goalId) {
   return stages;
 }
 
-List<Task> getTasksByStageId(int stageId){
+List<Task> getTasksByStageId(int stageId) {
   List<Task> tasks = [];
   for (Task task in currentTasks) {
     if (task.idStage == stageId) {
@@ -22,4 +23,29 @@ List<Task> getTasksByStageId(int stageId){
   }
   tasks.sort((a, b) => a.order.compareTo(b.order));
   return tasks;
+}
+
+Goal? getGoalById(int goalId) {
+  try {
+    Goal foundGoal = currentGoals.firstWhere((goal) => goal.id == goalId);
+    return foundGoal;
+  } on StateError {
+    return null;
+  }
+}
+Stage? getStageById(int stageId){
+  try {
+    Stage foundStage = currentStages.firstWhere((stage) => stage.id == stageId);
+    return foundStage;
+  } on StateError {
+    return null;
+  }
+}
+Task? getTaskById(int taskId){
+  try {
+    Task foundTask = currentTasks.firstWhere((task) => task.id == taskId);
+    return foundTask;
+  } on StateError {
+    return null;
+  }
 }

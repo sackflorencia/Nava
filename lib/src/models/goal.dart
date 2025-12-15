@@ -8,6 +8,13 @@ class Goal {
   final String title;
   final String description;
   Goal({required this.id, required this.title, required this.description});
+  Goal copyWith({int? id, String? title, String? description}) {
+    return Goal(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+    );
+  }
 }
 
 void addGoal({GoalTemplate? goal, required String name}) {
