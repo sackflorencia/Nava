@@ -26,11 +26,19 @@ class TemplateListTile extends StatelessWidget {
         ),
         title: Text(
           template.title,
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w500,
+            color: Theme.of(context).colorScheme.onInverseSurface,
+          ),
         ),
         subtitle: Text(
           template.description,
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: Theme.of(context).colorScheme.onInverseSurface,
+          ),
         ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
@@ -44,7 +52,6 @@ class TemplateListTile extends StatelessWidget {
             width: 2,
           ),
         ),
-        //leading: Icon(IconData(template.iconName)),
         onTap: () {
           showDialog(
             context: context,

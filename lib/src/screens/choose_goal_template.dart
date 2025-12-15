@@ -17,10 +17,14 @@ class ChooseGoalTemplate extends StatelessWidget {
           children: [
             Text(
               'Elegir plantilla para "$goalTitle"',
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w600,
+                color: Theme.of(context).colorScheme.onInverseSurface,
+              ),
               textAlign: TextAlign.center,
             ),
-            ListGoalTemplate(goalName: goalTitle,),
+            ListGoalTemplate(goalName: goalTitle),
           ],
         ),
       ),
