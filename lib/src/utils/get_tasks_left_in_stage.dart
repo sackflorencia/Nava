@@ -1,6 +1,6 @@
 import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/models/task.dart';
-import 'package:nava/src/utils/get_stage_and_tasks.dart';
+import 'package:nava/src/utils/get_objects_and_lists.dart';
 
 Stage? getCurrentStage(int goalId){
   final goal = getGoalById(goalId);

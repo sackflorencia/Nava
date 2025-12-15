@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/stage.dart';
-import 'package:nava/src/utils/get_stage_and_tasks.dart';
+import 'package:nava/src/utils/get_objects_and_lists.dart';
 import 'package:nava/src/widgets/tasks_list.dart';
 
 class StageListTile extends StatelessWidget{

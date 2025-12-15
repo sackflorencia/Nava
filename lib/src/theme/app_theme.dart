@@ -14,6 +14,7 @@ class AppTheme {
       surface: AppColors.background,
       onSurface: AppColors.textPrimary,
       onSurfaceVariant: AppColors.textSecondary,
+      onInverseSurface: AppColors.textOnBackground,
       surfaceContainerHighest: AppColors.surface,
     ),
     textTheme: TextTheme(

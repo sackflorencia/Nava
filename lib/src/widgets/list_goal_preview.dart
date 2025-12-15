@@ -9,12 +9,8 @@ class GridGoalPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      child: GridView.builder(
+      child: ListView.builder(
         itemCount: goals.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 1.3,
-        ),
         itemBuilder: (BuildContext context, int index) {
           return GoalPreview(goal: goals[index]);
         },

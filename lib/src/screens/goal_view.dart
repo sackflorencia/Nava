@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
-import 'package:nava/src/utils/change_model_values.dart';
-import 'package:nava/src/utils/get_stage_and_tasks.dart';
+import 'package:nava/src/utils/change_object_values.dart';
+import 'package:nava/src/utils/get_objects_and_lists.dart';
 import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/navbar.dart';
@@ -49,7 +49,7 @@ class _GoalViewState extends State<GoalView> {
             Text(
               _goal.title,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurface,
+                color: Theme.of(context).colorScheme.onInverseSurface,
                 fontSize: 20,
               ),
               textAlign: TextAlign.center,
@@ -57,7 +57,7 @@ class _GoalViewState extends State<GoalView> {
             Text(
               _goal.description,
               style: TextStyle(
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
+                color: Theme.of(context).colorScheme.onInverseSurface,
                 fontSize: 14,
               ),
               textAlign: TextAlign.center,

@@ -2,7 +2,7 @@ import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/utils/current_goals.dart';
-import 'package:nava/src/utils/get_stage_and_tasks.dart';
+import 'package:nava/src/utils/get_objects_and_lists.dart';
 
 void changeTaskTitleAndDescription(int taskID, String title, String description) {
   final task = getTaskById(taskID);
@@ -53,4 +53,24 @@ void changeStageTitle(int stageId, String title) {
     return;
   }
   currentStages[index] = updatedStage;
+}
+void changeIsCompletedTaskValue(int taskId, bool? isCompleted){
+  if(isCompleted == null) return;
+  final task = getTaskById(taskId);
+  if(task == null) return;
+  final updatedTask = Task(
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    idStage: task.idStage,
+    order: task.order,
+    estimatedMinutes: task.estimatedMinutes,
+    difficulty: task.difficulty,
+    isCompleted: isCompleted,
+  );
+  final index = currentTasks.indexWhere((task) => task.id == taskId);
+  if (index == -1) {
+    return;
+  }
+  currentTasks[index] = updatedTask;
 }

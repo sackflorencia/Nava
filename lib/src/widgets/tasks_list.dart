@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/task.dart';
+import 'package:nava/src/widgets/task_list_tile.dart';
 
 class TasksList extends StatelessWidget {
   final List<Task> tasks;
@@ -13,10 +14,7 @@ class TasksList extends StatelessWidget {
       itemBuilder: (context, index) {
         return Column(
           children: [
-            ListTile(
-              title: Text(tasks[index].title),
-              subtitle: Text(tasks[index].description),
-            ),
+            TaskListTile(task: tasks[index]),
             SizedBox(height: 10),
           ],
         );

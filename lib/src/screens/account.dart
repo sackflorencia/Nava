@@ -129,13 +129,13 @@ class _AccountState extends State<Account> {
         LittleTextField(
           hintText: 'Email o username',
           controller: emailController,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         const SizedBox(height: 10),
         LittleTextField(
           hintText: 'Contraseña',
           obscureText: true,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).colorScheme.onSurface,
           controller: passwordController,
         ),
         const SizedBox(height: 10),
@@ -147,7 +147,7 @@ class _AccountState extends State<Account> {
         const SizedBox(height: 10),
         PersonalizedTextButton(
           text: 'Nuevo en Nava? Sign up',
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.onSurface,
           onPressed: () {
             setState(() {
               showSignIn = false;
@@ -169,24 +169,24 @@ class _AccountState extends State<Account> {
         LittleTextField(
           hintText: 'Email',
           controller: emailController,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         const SizedBox(height: 10),
         LittleTextField(
           hintText: 'Username',
           controller: usernameController,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         const SizedBox(height: 10),
         LittleTextField(
           hintText: 'Contraseña',
           obscureText: true,
           controller: passwordController,
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).colorScheme.onSurface,
         ),
         const SizedBox(height: 10),
         LittleTextField(
-          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          color: Theme.of(context).colorScheme.onSurface,
           hintText: 'Reingrese la contraseña',
           obscureText: true,
           controller: confirmPasswordController,
@@ -205,7 +205,7 @@ class _AccountState extends State<Account> {
         const SizedBox(height: 10),
         PersonalizedTextButton(
           text: 'Ya tenés una cuenta? Sign in',
-          color: Theme.of(context).colorScheme.primary,
+          color: Theme.of(context).colorScheme.onSurface,
           onPressed: () {
             setState(() {
               showSignIn = true;
