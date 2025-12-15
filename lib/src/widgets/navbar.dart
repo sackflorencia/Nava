@@ -25,21 +25,23 @@ class Navbar extends StatelessWidget {
             ),
             TextButton(
               onPressed: () {},
-              child: Row(children: [
-                Icon(
-                  Icons.settings,
-                  size: 30,
-                  color: Theme.of(context).colorScheme.onSurface,
-                ),
-                SizedBox(width: 10),
-                Text(
-                  "Configuración",
-                  style: TextStyle(
-                    fontSize: 23,
-                    color: Theme.of(context).colorScheme.onSurface,
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.settings,
+                    size: 30,
+                    color: Theme.of(context).colorScheme.onInverseSurface,
                   ),
-                ),
-              ]),
+                  SizedBox(width: 10),
+                  Text(
+                    "Configuración",
+                    style: TextStyle(
+                      fontSize: 23,
+                      color: Theme.of(context).colorScheme.onInverseSurface,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

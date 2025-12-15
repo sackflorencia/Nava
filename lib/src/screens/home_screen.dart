@@ -143,28 +143,29 @@ class _HomeScreenState extends State<HomeScreen> {
       ],
     ),
   );
-}
-
-void _handleAddingEmptyGoal(TextEditingController goalController, context) {
-  if (goalController.text.isEmpty) {
-    Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
-  } else {
-    addGoal(name: goalController.text);
-    Navigator.of(context).pop();
-    GoRouter.of(
-      context,
-    ).go('/home', extra: ""); //TODO: cambiar el email cuando haga riverpod
-    goalController.text = "";
-    Fluttertoast.showToast(msg: "Ingreso exitoso!");
+  void _handleAddingEmptyGoal(TextEditingController goalController, context) {
+    if (goalController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
+    } else {
+      addGoal(name: goalController.text);
+      setState(() {
+        Navigator.of(context).pop();
+        GoRouter.of(
+          context,
+        ).go('/home', extra: ""); //TODO: cambiar el email cuando haga riverpod
+        goalController.text = "";
+        Fluttertoast.showToast(msg: "Ingreso exitoso!");
+      });
+    }
   }
-}
 
-void _handleChoosingTemplate(TextEditingController goalController, context) {
-  if (goalController.text.isEmpty) {
-    Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
-  } else {
-    GoRouter.of(
-      context,
-    ).go('/choose_goal_template', extra: goalController.text);
+  void _handleChoosingTemplate(TextEditingController goalController, context) {
+    if (goalController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Por favor ingrese el nombre de su objetivo");
+    } else {
+      GoRouter.of(
+        context,
+      ).go('/choose_goal_template', extra: goalController.text);
+    }
   }
 }

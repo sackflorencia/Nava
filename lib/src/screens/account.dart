@@ -64,7 +64,7 @@ class _AccountState extends State<Account> {
                     fontSize: 130,
                     fontWeight: FontWeight.w500,
                     fontFamily: 'Vaughan',
-                    color: Theme.of(context).colorScheme.onSurface,
+                    color: Theme.of(context).colorScheme.onInverseSurface,
                     height: 0.7,
                   ),
                 ),
