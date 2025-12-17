@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/stage.dart';
+import 'package:nava/src/utils/add_objects.dart';
 import 'package:nava/src/utils/get_objects_and_lists.dart';
 import 'package:nava/src/widgets/tasks_list.dart';
 
-class StageListTile extends StatelessWidget{
+class StageListTile extends StatelessWidget {
   final Stage stage;
   const StageListTile({super.key, required this.stage});
 
@@ -22,13 +23,19 @@ class StageListTile extends StatelessWidget{
               fontSize: 19,
               fontWeight: FontWeight.w600,
               color: Theme.of(context).colorScheme.onSurface,
-            )
+            ),
           ),
           SizedBox(height: 10),
-          Expanded(child: TasksList(tasks: getTasksByStageId(stage.id)))
+          Expanded(child: TasksList(tasks: getTasksByStageId(stage.id))),
+          SizedBox(height: 10),
+          IconButton(
+            onPressed: () {
+              addTask(stage.id);
+            },
+            icon: Icon(Icons.add),
+          ),
         ],
       ),
-      
     );
   }
 }

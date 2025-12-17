@@ -17,4 +17,25 @@ class Task {
     this.difficulty = -1,
     this.isCompleted = false,
   });
+  Task copyWith({
+    int? id,
+    int? idStage,
+    String? title,
+    int? order,
+    String? description,
+    int? estimatedMinutes,
+    int? difficulty,
+    bool? isCompleted,
+  }) {
+    return Task(
+      id: id ?? this.id,
+      idStage: id ?? this.idStage,
+      title: title ?? this.title,
+      order: order ?? this.order,
+      description: description ?? this.description,
+      estimatedMinutes: estimatedMinutes ?? this.estimatedMinutes,
+      difficulty: difficulty ?? this.difficulty,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
 }
