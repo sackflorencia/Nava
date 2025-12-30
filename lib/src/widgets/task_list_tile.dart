@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/theme/theme_utils.dart';
-import 'package:nava/src/utils/change_object_values.dart';
+import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 
 class TaskListTile extends StatefulWidget {
   final Task task;
-  final Function() onChanged;
+  final VoidCallback onChanged;
   const TaskListTile({super.key, required this.task, required this.onChanged});
 
   @override
@@ -14,17 +14,24 @@ class TaskListTile extends StatefulWidget {
 }
 
 class _TaskListTileState extends State<TaskListTile> {
-  late Task _task = widget.task;
-  late bool _isChecked = _task.isCompleted;
+  late bool _isChecked;
   late final TextEditingController taskTitleController;
   late final TextEditingController taskDescriptionController;
 
   @override
   void initState() {
     super.initState();
-    _task = widget.task;
+    _isChecked = widget.task.isCompleted;
     taskTitleController = TextEditingController();
     taskDescriptionController = TextEditingController();
+  }
+
+  @override
+  void didUpdateWidget(covariant TaskListTile oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.task.isCompleted != widget.task.isCompleted) {
+      _isChecked = widget.task.isCompleted;
+    }
   }
 
   @override
@@ -49,7 +56,7 @@ class _TaskListTileState extends State<TaskListTile> {
       ),
       child: CheckboxListTile(
         title: Text(
-          _task.title,
+          widget.task.title,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurface,
             decoration: _isChecked
@@ -60,7 +67,7 @@ class _TaskListTileState extends State<TaskListTile> {
           ),
         ),
         subtitle: Text(
-          _task.description,
+          widget.task.description,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onSurfaceVariant,
             decoration: _isChecked
@@ -72,28 +79,23 @@ class _TaskListTileState extends State<TaskListTile> {
         ),
         secondary: IconButton(
           onPressed: () {
-            taskDescriptionController.text = _task.description;
-            taskTitleController.text = _task.title;
+            taskDescriptionController.text = widget.task.description;
+            taskTitleController.text = widget.task.title;
             showDialog(
               context: context,
               builder: (context) {
                 return ModifyTitleAndDescriptionPopUp(
+                  titleController: taskTitleController,
                   descriptionController: taskDescriptionController,
                   onConfirm: () {
-                    setState(() {
-                      changeTaskTitleAndDescription(
-                        _task.id,
-                        taskTitleController.text,
-                        taskDescriptionController.text,
-                      );
-                      _task = _task.copyWith(
-                        title: taskTitleController.text,
-                        description: taskDescriptionController.text,
-                      );
-                    });
+                    changeTaskTitleAndDescription(
+                      widget.task.id,
+                      taskTitleController.text,
+                      taskDescriptionController.text,
+                    );
                     Navigator.of(context).pop();
+                    setState(() {});
                   },
-                  titleController: taskTitleController,
                 );
               },
             );
@@ -102,10 +104,12 @@ class _TaskListTileState extends State<TaskListTile> {
         ),
         value: _isChecked,
         onChanged: (bool? newValue) {
-          changeIsCompletedTaskValue(_task.id, newValue);
+          if (newValue == null) return;
+          changeIsCompletedTaskValue(widget.task.id, newValue);
           setState(() {
-            _isChecked = newValue!;
+            _isChecked = newValue;
           });
+
           widget.onChanged();
         },
         controlAffinity: ListTileControlAffinity.leading,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
-import 'package:nava/src/utils/change_object_values.dart';
-import 'package:nava/src/utils/get_objects_and_lists.dart';
+import 'package:nava/src/services/change_object_values.dart';
+import 'package:nava/src/services/get_objects_and_lists.dart';
 import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/navbar.dart';

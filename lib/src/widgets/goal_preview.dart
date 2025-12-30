@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
-import 'package:nava/src/utils/get_tasks_left_in_stage.dart';
+import 'package:nava/src/services/get_tasks_left_in_stage.dart';
 
 class GoalPreview extends StatelessWidget {
   final Goal goal;

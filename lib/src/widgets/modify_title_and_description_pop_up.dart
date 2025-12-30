@@ -5,7 +5,7 @@ import 'package:nava/src/widgets/personalized_text_button.dart';
 
 class ModifyTitleAndDescriptionPopUp extends StatelessWidget {
   final TextEditingController titleController;
-  final TextEditingController descriptionController;
+  final TextEditingController? descriptionController;
   final Function() onConfirm;
   const ModifyTitleAndDescriptionPopUp({
     super.key,
@@ -19,7 +19,7 @@ class ModifyTitleAndDescriptionPopUp extends StatelessWidget {
     return Center(
       child: AlertDialog(
         title: Text(
-          'Modificar título y descripción',
+          'Modificar',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Theme.of(context).colorScheme.onInverseSurface,
@@ -31,13 +31,15 @@ class ModifyTitleAndDescriptionPopUp extends StatelessWidget {
             controller: titleController,
             color: Theme.of(context).colorScheme.secondary,
           ),
-          SizedBox(height: 10),
-          LittleTextField(
+          const SizedBox(height: 10),
+          if(descriptionController != null)...[
+            LittleTextField(
             hintText: 'Descripción',
-            controller: descriptionController,
+            controller: descriptionController!,
             color: Theme.of(context).colorScheme.secondary,
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
+          ],
           Center(
             child: PersonalizedElevatedButton(
               onPressed: onConfirm,

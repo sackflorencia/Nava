@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nava/src/utils/add_objects.dart';
-import 'package:nava/src/utils/current_goals.dart';
+import 'package:nava/src/services/add_objects.dart';
+import 'package:nava/src/services/current_goals.dart';
 import 'package:nava/src/widgets/list_goal_preview.dart';
 import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';

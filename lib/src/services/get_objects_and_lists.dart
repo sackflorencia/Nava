@@ -1,7 +1,7 @@
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/models/task.dart';
-import 'package:nava/src/utils/current_goals.dart';
+import 'package:nava/src/services/current_goals.dart';
 
 List<Stage> getStagesByGoalId(int goalId) {
   List<Stage> stages = [];

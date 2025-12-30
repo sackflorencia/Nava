@@ -1,8 +1,8 @@
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/models/task.dart';
-import 'package:nava/src/utils/current_goals.dart';
-import 'package:nava/src/utils/get_objects_and_lists.dart';
+import 'package:nava/src/services/current_goals.dart';
+import 'package:nava/src/services/get_objects_and_lists.dart';
 
 void changeTaskTitleAndDescription(
   int taskID,
@@ -145,4 +145,42 @@ void changeTasksOrder(int taskId, int newOrder) {
     return;
   }
   currentTasks[index] = updatedTask;
+}
+
+void changeTasksOrderPlusOne(int stageId) {
+  List<Task> tasksInStage = getTasksByStageId(stageId);
+  for (Task task in tasksInStage) {
+    final updatedTask = Task(
+      id: task.id,
+      title: task.title,
+      description: task.description,
+      idStage: task.idStage,
+      order: task.order + 1,
+      estimatedMinutes: task.estimatedMinutes,
+      difficulty: task.difficulty,
+      isCompleted: task.isCompleted,
+    );
+    final index = currentTasks.indexWhere((task2) => task2.id == task.id);
+    if (index == -1) {
+      return;
+    }
+    currentTasks[index] = updatedTask;
+  }
+}
+
+void changeStagesOrderPlusOne(int goalId) {
+  List<Stage> stagesInGoal = getStagesByGoalId(goalId);
+  for (Stage stage in stagesInGoal) {
+    final updatedStage = Stage(
+      id: stage.id,
+      idGoal: stage.idGoal,
+      title: stage.title,
+      order: stage.order + 1,
+    );
+    final index = currentStages.indexWhere((stage2) => stage2.id == stage.id);
+    if (index == -1) {
+      return;
+    }
+    currentStages[index] = updatedStage;
+  }
 }

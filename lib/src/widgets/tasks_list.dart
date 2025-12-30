@@ -2,49 +2,33 @@ import 'package:flutter/material.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/widgets/task_list_tile.dart';
 
-class TasksList extends StatefulWidget {
+class TasksList extends StatelessWidget {
   final List<Task> tasks;
-  const TasksList({super.key, required this.tasks});
-
-  @override
-  State<TasksList> createState() => _TasksListState();
-}
-
-class _TasksListState extends State<TasksList> {
-  late List<Task> _tasks;
-  @override
-  void initState() {
-    super.initState();
-    _tasks = List.from(widget.tasks);
-    _sortTasks();
-  }
-
-  void _sortTasks() {
-    _tasks.sort((a, b) {
+  final VoidCallback onChanged;
+  const TasksList({super.key, required this.tasks, required this.onChanged});
+  List<Task> _sortedTasks() {
+    final sorted = List<Task>.from(tasks);
+    sorted.sort((a, b) {
       if (a.isCompleted != b.isCompleted) {
         return a.isCompleted ? 1 : -1;
       }
       return a.order.compareTo(b.order);
     });
+    return sorted;
   }
-
-  void _onTaskToggled() {
-    setState(() {
-      _sortTasks();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    final sortedTasks = _sortedTasks();
     return ListView.builder(
-      itemCount: widget.tasks.length,
+      itemCount: sortedTasks.length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return Column(
           children: [
             TaskListTile(
-              task: _tasks[index],
-              onChanged: _onTaskToggled,
+              key: ValueKey(sortedTasks[index].id),
+              task: sortedTasks[index],
+              onChanged: onChanged,
             ),
             SizedBox(height: 10),
           ],

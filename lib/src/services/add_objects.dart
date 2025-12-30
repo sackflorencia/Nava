@@ -2,7 +2,8 @@ import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/goal_template.dart';
 import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/models/task.dart';
-import 'package:nava/src/utils/current_goals.dart';
+import 'package:nava/src/services/change_object_values.dart';
+import 'package:nava/src/services/current_goals.dart';
 
 void addGoal({GoalTemplate? goal, required String name}) {
   Goal lastGoal = currentGoals[currentGoals.length - 1];
@@ -41,26 +42,27 @@ void addGoal({GoalTemplate? goal, required String name}) {
   }
 }
 
-
 void addTask(int stageId) {
+  changeTasksOrderPlusOne(stageId);
   currentTasks.add(
     Task(
       id: (currentTasks.length - 1),
       idStage: stageId,
       title: "Nueva tarea",
       description: "-",
-      order: 20,
+      order: 1,
     ),
   );
 }
 
 void addStage(int goalId) {
+  changeStagesOrderPlusOne(goalId);
   currentStages.add(
     Stage(
       id: (currentStages.length - 1),
       idGoal: goalId,
       title: "Nueva etapa",
-      order: 20,
+      order: 1,
     ),
   );
 }
