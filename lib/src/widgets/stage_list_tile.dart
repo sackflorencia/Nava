@@ -47,6 +47,7 @@ class _StageListTileState extends State<StageListTile> {
           IconButton(
             onPressed: () {
               addTask(widget.stage.id);
+              _refresh();
             },
             icon: Icon(Icons.add),
           ),

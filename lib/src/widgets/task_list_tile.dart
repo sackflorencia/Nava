@@ -94,7 +94,7 @@ class _TaskListTileState extends State<TaskListTile> {
                       taskDescriptionController.text,
                     );
                     Navigator.of(context).pop();
-                    setState(() {});
+                    widget.onChanged();
                   },
                 );
               },

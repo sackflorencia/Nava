@@ -43,10 +43,11 @@ void addGoal({GoalTemplate? goal, required String name}) {
 }
 
 void addTask(int stageId) {
+  final newId = currentTasks.isEmpty ? 0 : currentTasks.last.id + 1;
   changeTasksOrderPlusOne(stageId);
   currentTasks.add(
     Task(
-      id: (currentTasks.length - 1),
+      id: newId,
       idStage: stageId,
       title: "Nueva tarea",
       description: "-",

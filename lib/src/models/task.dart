@@ -29,7 +29,7 @@ class Task {
   }) {
     return Task(
       id: id ?? this.id,
-      idStage: id ?? this.idStage,
+      idStage: idStage ?? this.idStage,
       title: title ?? this.title,
       order: order ?? this.order,
       description: description ?? this.description,
