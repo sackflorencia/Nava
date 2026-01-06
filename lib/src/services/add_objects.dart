@@ -57,13 +57,13 @@ void addTask(int stageId) {
 }
 
 void addStage(int goalId) {
-  changeStagesOrderPlusOne(goalId);
+  int newId = currentStages.isEmpty ? 0 : currentStages.last.id + 1;
   currentStages.add(
     Stage(
-      id: (currentStages.length - 1),
+      id: newId,
       idGoal: goalId,
       title: "Nueva etapa",
-      order: 1,
+      order: currentStages.where((s) => s.idGoal == goalId).length + 1,
     ),
   );
 }

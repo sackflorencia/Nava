@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/stage.dart';
+import 'package:nava/src/services/add_objects.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
+import 'package:nava/src/widgets/add_stage_button.dart';
 import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/navbar.dart';
@@ -62,7 +64,7 @@ class _GoalViewState extends State<GoalView> {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: 8,),
+            SizedBox(height: 8),
             PersonalizedOutlinedButton(
               text: 'Editar',
               onPressed: () {
@@ -94,13 +96,22 @@ class _GoalViewState extends State<GoalView> {
               },
               foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
             ),
-            SizedBox(height: 10,),
+            SizedBox(height: 10),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.75,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: stages.length,
+                itemCount: stages.length + 1,
                 itemBuilder: (context, index) {
+                  if (index == stages.length) {
+                    return AddStageTile(
+                      onPressed: () {
+                        addStage(widget.goal.id);
+                        setState(() {});
+                      },
+                      isEmpty: stages.isEmpty,
+                    );
+                  }
                   Stage stage = stages[index];
                   return StageListTile(stage: stage);
                 },

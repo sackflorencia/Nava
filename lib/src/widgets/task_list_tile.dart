@@ -7,7 +7,8 @@ import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 class TaskListTile extends StatefulWidget {
   final Task task;
   final VoidCallback onChanged;
-  const TaskListTile({super.key, required this.task, required this.onChanged});
+  final int index;
+  const TaskListTile({super.key, required this.task, required this.onChanged, required this.index});
 
   @override
   State<TaskListTile> createState() => _TaskListTileState();
@@ -119,6 +120,7 @@ class _TaskListTileState extends State<TaskListTile> {
           color: Theme.of(context).colorScheme.onInverseSurface,
           width: 2,
         ),
+        
       ),
     );
   }
