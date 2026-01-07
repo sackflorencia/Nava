@@ -49,3 +49,14 @@ Task? getTaskById(int taskId){
     return null;
   }
 }
+List<Stage> getStagesByTaskId(int taskId){
+  Task? task = getTaskById(taskId);
+  if(task == null){
+    return [];
+  }
+  Stage? stage = getStageById(task.idStage);
+  if(stage == null){
+    return [];
+  }
+  return getStagesByGoalId(stage.idGoal);
+}

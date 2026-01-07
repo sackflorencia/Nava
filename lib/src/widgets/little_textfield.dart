@@ -33,6 +33,7 @@ class _LittleTextFieldState extends State<LittleTextField> {
     return SizedBox(
       height: 35,
       child: TextField(
+        textInputAction: TextInputAction.done,
         controller: widget.controller,
         style: TextStyle(color: widget.color),
         obscureText: _isObscured,

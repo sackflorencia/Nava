@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/theme/theme_utils.dart';
 import 'package:nava/src/services/change_object_values.dart';
@@ -49,84 +50,6 @@ class _TaskListTileState extends State<TaskListTile> {
 
   @override
   Widget build(BuildContext context) {
-    // return Material(
-    //   color: lighten(
-    //     Theme.of(context).colorScheme.surfaceContainerHighest,
-    //     0.07,
-    //   ),
-    //   borderRadius: BorderRadius.only(
-    //     topLeft: Radius.circular(14),
-    //     topRight: Radius.circular(0),
-    //     bottomLeft: Radius.circular(0),
-    //     bottomRight: Radius.circular(14),
-    //   ),
-    //   child: CheckboxListTile(
-    //     title: Text(
-    //       widget.task.title,
-    //       style: TextStyle(
-    //         color: Theme.of(context).colorScheme.onSurface,
-    //         decoration: _isChecked
-    //             ? TextDecoration.lineThrough
-    //             : TextDecoration.none,
-    //         decorationThickness: 2,
-    //         fontStyle: _isChecked ? FontStyle.italic : FontStyle.normal,
-    //       ),
-    //     ),
-    //     subtitle: Text(
-    //       widget.task.description,
-    //       style: TextStyle(
-    //         color: Theme.of(context).colorScheme.onSurfaceVariant,
-    //         decoration: _isChecked
-    //             ? TextDecoration.lineThrough
-    //             : TextDecoration.none,
-    //         decorationThickness: 2,
-    //         fontStyle: _isChecked ? FontStyle.italic : FontStyle.normal,
-    //       ),
-    //     ),
-    //     secondary: IconButton(
-    //       onPressed: () {
-    //         taskDescriptionController.text = widget.task.description;
-    //         taskTitleController.text = widget.task.title;
-    //         showDialog(
-    //           context: context,
-    //           builder: (context) {
-    //             return ModifyTitleAndDescriptionPopUp(
-    //               titleController: taskTitleController,
-    //               descriptionController: taskDescriptionController,
-    //               onConfirm: () {
-    //                 changeTaskTitleAndDescription(
-    //                   widget.task.id,
-    //                   taskTitleController.text,
-    //                   taskDescriptionController.text,
-    //                 );
-    //                 Navigator.of(context).pop();
-    //                 widget.onChanged();
-    //               },
-    //             );
-    //           },
-    //         );
-    //       },
-    //       icon: Icon(Icons.edit),
-    //     ),
-    //     value: _isChecked,
-    //     onChanged: (bool? newValue) {
-    //       if (newValue == null) return;
-    //       changeIsCompletedTaskValue(widget.task.id, newValue);
-    //       setState(() {
-    //         _isChecked = newValue;
-    //       });
-
-    //       widget.onChanged();
-    //     },
-    //     controlAffinity: ListTileControlAffinity.leading,
-    //     activeColor: Theme.of(context).colorScheme.secondary,
-    //     checkColor: Theme.of(context).colorScheme.surface,
-    //     side: BorderSide(
-    //       color: Theme.of(context).colorScheme.onInverseSurface,
-    //       width: 2,
-    //     ),
-    //   ),
-    // );
     return Material(
       color: lighten(
         Theme.of(context).colorScheme.surfaceContainerHighest,
@@ -144,8 +67,10 @@ class _TaskListTileState extends State<TaskListTile> {
           bottomRight: Radius.circular(14),
         ),
         onTap: () {
-          Fluttertoast.showToast(msg: "Task details screen is not implemented yet.");
-        }, //TODO: linkear a la pantalla de detalles de la tarea
+          GoRouter.of(
+          context,
+        ).go('/task_details', extra: widget.task);
+        }, 
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           child: Row(

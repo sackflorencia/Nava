@@ -184,3 +184,23 @@ void changeStagesOrderPlusOne(int goalId) {
     currentStages[index] = updatedStage;
   }
 }
+
+void changeTaskStage(int taskId, int newStageId){
+  final task = getTaskById(taskId);
+  if (task == null) return;
+  final updatedTask = Task(
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    idStage: newStageId,
+    order: task.order,
+    estimatedMinutes: task.estimatedMinutes,
+    difficulty: task.difficulty,
+    isCompleted: task.isCompleted,
+  );
+  final index = currentTasks.indexWhere((task2) => task2.id == taskId);
+  if (index == -1) {
+    return;
+  }
+  currentTasks[index] = updatedTask;
+}
