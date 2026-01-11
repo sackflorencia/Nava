@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/stage.dart';
+import 'package:nava/src/services/change_object_values.dart';
 
 class StagesDropdown extends StatelessWidget {
   final List<Stage> stages;
   final Stage? selectedStage;
-  final VoidCallback onSelected;
+  final int taskId;
   const StagesDropdown({
     super.key,
     required this.stages,
     this.selectedStage,
-    required this.onSelected,
+    required this.taskId,
   });
   @override
   Widget build(BuildContext context) {
@@ -41,7 +42,8 @@ class StagesDropdown extends StatelessWidget {
           ),
       ],
       onSelected: (stage) {
-        onSelected();
+        if (stage == null) return;
+        changeTaskStage(taskId, stage.id);
       },
     );
   }
