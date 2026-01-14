@@ -15,10 +15,12 @@ class StagesDropdown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DropdownMenu(
-      width: 200,
+      width: 190,
       initialSelection: selectedStage,
       textStyle: TextStyle(
         color: Theme.of(context).colorScheme.onInverseSurface,
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
       ),
       trailingIcon: Icon(
         Icons.keyboard_arrow_down,
@@ -37,6 +39,8 @@ class StagesDropdown extends StatelessWidget {
               stage.title,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onInverseSurface,
+                fontSize: 18,
+                fontWeight: FontWeight.w500,
               ),
             ),
           ),
@@ -45,6 +49,9 @@ class StagesDropdown extends StatelessWidget {
         if (stage == null) return;
         changeTaskStage(taskId, stage.id);
       },
+      inputDecorationTheme: const InputDecorationTheme(
+        border: InputBorder.none,
+      ),
     );
   }
 }

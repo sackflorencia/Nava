@@ -29,6 +29,48 @@ void changeTaskTitleAndDescription(
   }
   currentTasks[index] = updatedTask;
 }
+void changeTaskTitle(int taskID, String title) {
+  final task = getTaskById(taskID);
+  if (task == null) {
+    return;
+  }
+  final updatedTask = Task(
+    id: task.id,
+    title: title,
+    description: task.description,
+    idStage: task.idStage,
+    order: task.order,
+    estimatedMinutes: task.estimatedMinutes,
+    difficulty: task.difficulty,
+    isCompleted: task.isCompleted,
+  );
+  final index = currentTasks.indexWhere((task) => task.id == taskID);
+  if (index == -1) {
+    return;
+  }
+  currentTasks[index] = updatedTask;
+}
+void changeTaskDescription(int taskID, String description) {
+  final task = getTaskById(taskID);
+  if (task == null) {
+    return;
+  }
+  final updatedTask = Task(
+    id: task.id,
+    title: task.title,
+    description: description,
+    idStage: task.idStage,
+    order: task.order,
+    estimatedMinutes: task.estimatedMinutes,
+    difficulty: task.difficulty,
+    isCompleted: task.isCompleted,
+  );
+  final index = currentTasks.indexWhere((task) => task.id == taskID);
+  if (index == -1) {
+    return;
+  }
+  currentTasks[index] = updatedTask;
+}
 
 void changeGoalTitleAndDescription(
   int goalId,
@@ -195,6 +237,28 @@ void changeTaskStage(int taskId, int newStageId){
     idStage: newStageId,
     order: task.order,
     estimatedMinutes: task.estimatedMinutes,
+    difficulty: task.difficulty,
+    isCompleted: task.isCompleted,
+  );
+  final index = currentTasks.indexWhere((task2) => task2.id == taskId);
+  if (index == -1) {
+    return;
+  }
+  currentTasks[index] = updatedTask;
+}
+void changeTaskEstimatedMinutes(int taskId, int? estimatedMinutes){
+  final task = getTaskById(taskId);
+  if (task == null) return;
+  if(estimatedMinutes != null && estimatedMinutes < 0){
+    return;
+  }
+  final updatedTask = Task(
+    id: task.id,
+    title: task.title,
+    description: task.description,
+    idStage: task.idStage,
+    order: task.order,
+    estimatedMinutes: estimatedMinutes,
     difficulty: task.difficulty,
     isCompleted: task.isCompleted,
   );

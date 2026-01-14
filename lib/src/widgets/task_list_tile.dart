@@ -66,77 +66,88 @@ class _TaskListTileState extends State<TaskListTile> {
           bottomRight: Radius.circular(14),
         ),
         onTap: () {
-          GoRouter.of(
-          context,
-        ).go('/task_details', extra: widget.task);
-        }, 
+          GoRouter.of(context).go('/task_details', extra: widget.task);
+        },
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Checkbox(
-                value: _isChecked,
-                onChanged: (bool? newValue) {
-                  if (newValue == null) return;
-                  changeIsCompletedTaskValue(widget.task.id, newValue);
-                  setState(() {
-                    _isChecked = newValue;
-                  });
-                  widget.onChanged();
-                },
-                activeColor: Theme.of(context).colorScheme.secondary,
-                checkColor: Theme.of(context).colorScheme.surface,
-                side: BorderSide(
-                  color: Theme.of(context).colorScheme.onInverseSurface,
-                  width: 2,
-                ),
-              ),
-              const SizedBox(width: 3),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      widget.task.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Theme.of(context).colorScheme.onSurface,
-                        decoration: _isChecked
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                        decorationThickness: 2,
-                      ),
+          padding: EdgeInsets.symmetric(
+            horizontal: 12,
+            vertical: widget.task.description == null ? 6 : 10,
+          ),
+          child: IntrinsicHeight(
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Align(
+                  alignment: Alignment.center,
+                  child: Checkbox(
+                    value: _isChecked,
+                    onChanged: (bool? newValue) {
+                      if (newValue == null) return;
+                      changeIsCompletedTaskValue(widget.task.id, newValue);
+                      setState(() {
+                        _isChecked = newValue;
+                      });
+                      widget.onChanged();
+                    },
+                    activeColor: Theme.of(context).colorScheme.secondary,
+                    checkColor: Theme.of(context).colorScheme.surface,
+                    side: BorderSide(
+                      color: Theme.of(context).colorScheme.onInverseSurface,
+                      width: 2,
                     ),
-                    const SizedBox(height: 2),
-                    Text(
-                      widget.task.description,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: Theme.of(context).colorScheme.onSurfaceVariant,
-                        decoration: _isChecked
-                            ? TextDecoration.lineThrough
-                            : TextDecoration.none,
-                        decorationThickness: 2,
+                  ),
+                ),
+                const SizedBox(width: 3),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.task.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                          color: Theme.of(context).colorScheme.onSurface,
+                          decoration: _isChecked
+                              ? TextDecoration.lineThrough
+                              : TextDecoration.none,
+                          decorationThickness: 2,
+                        ),
                       ),
-                    ),
-                  ],
+                      if (widget.task.description != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          widget.task.description!,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurfaceVariant,
+                            decoration: _isChecked
+                                ? TextDecoration.lineThrough
+                                : TextDecoration.none,
+                            decorationThickness: 2,
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              ReorderableDragStartListener(
-                index: widget.task.order,
-                child: Icon(
-                  Icons.drag_handle,
-                  color: Theme.of(context).colorScheme.onSurface,
+                const SizedBox(width: 8),
+                ReorderableDragStartListener(
+                  index: widget.task.order,
+                  child: Icon(
+                    Icons.drag_handle,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/services/add_objects.dart';
+import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
+import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 import 'package:nava/src/widgets/tasks_list.dart';
 
 class StageListTile extends StatefulWidget {
@@ -13,6 +15,23 @@ class StageListTile extends StatefulWidget {
 }
 
 class _StageListTileState extends State<StageListTile> {
+  late final TextEditingController newTaskTitleController;
+  late final TextEditingController newTaskDescriptionController;
+
+  @override
+  void initState() {
+    super.initState();
+    newTaskTitleController = TextEditingController();
+    newTaskDescriptionController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    newTaskTitleController.dispose();
+    newTaskDescriptionController.dispose();
+    super.dispose();
+  }
+
   void _refresh() {
     setState(() {});
   }
@@ -46,8 +65,25 @@ class _StageListTileState extends State<StageListTile> {
           SizedBox(height: 10),
           IconButton(
             onPressed: () {
-              addTask(widget.stage.id);
-              _refresh();
+              int taskId = addTask(widget.stage.id);
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return ModifyTitleAndDescriptionPopUp(
+                    titleController: newTaskTitleController,
+                    descriptionController: newTaskDescriptionController,
+                    onConfirm: () {
+                      changeTaskTitleAndDescription(
+                        taskId,
+                        newTaskTitleController.text,
+                        newTaskDescriptionController.text,
+                      );
+                      _refresh();
+                      Navigator.of(context).pop();
+                    },
+                  );
+                },
+              );
             },
             icon: Icon(Icons.add),
           ),

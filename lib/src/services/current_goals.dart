@@ -31,7 +31,7 @@ List<Task> currentTasks = [
     title: 'Respiración consciente',
     description: 'Practicar 3 minutos de respiración enfocada.',
     order: 2,
-    estimatedMinutes: 3,
+    estimatedMinutes: 5,
     difficulty: 1,
   ),
   Task(

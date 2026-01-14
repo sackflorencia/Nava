@@ -42,7 +42,7 @@ void addGoal({GoalTemplate? goal, required String name}) {
   }
 }
 
-void addTask(int stageId) {
+int addTask(int stageId) {
   final newId = currentTasks.isEmpty ? 0 : currentTasks.last.id + 1;
   changeTasksOrderPlusOne(stageId);
   currentTasks.add(
@@ -54,6 +54,7 @@ void addTask(int stageId) {
       order: 1,
     ),
   );
+  return newId;
 }
 
 void addStage(int goalId) {
