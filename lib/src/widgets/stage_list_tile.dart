@@ -17,18 +17,23 @@ class StageListTile extends StatefulWidget {
 class _StageListTileState extends State<StageListTile> {
   late final TextEditingController newTaskTitleController;
   late final TextEditingController newTaskDescriptionController;
+  late final TextEditingController stageTitleController;
+  late Stage _stage;
 
   @override
   void initState() {
     super.initState();
+    _stage = widget.stage;
     newTaskTitleController = TextEditingController();
     newTaskDescriptionController = TextEditingController();
+    stageTitleController = TextEditingController(text: _stage.title);
   }
 
   @override
   void dispose() {
     newTaskTitleController.dispose();
     newTaskDescriptionController.dispose();
+    stageTitleController.dispose();
     super.dispose();
   }
 
@@ -45,48 +50,56 @@ class _StageListTileState extends State<StageListTile> {
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       child: Column(
         children: [
-          Text(
-            widget.stage.title,
+          TextField(
+            controller: stageTitleController,
+            decoration: InputDecoration(border: InputBorder.none),
             style: TextStyle(
               fontSize: 19,
               fontWeight: FontWeight.w600,
               color: Theme.of(context).colorScheme.onSurface,
             ),
+            onChanged: (value) {
+              changeStageTitle(_stage.id, value);
+              setState(() {
+                _stage = _stage.copyWith(title: value);
+              });
+            },
+            textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
           Expanded(
             child: TasksList(
-              tasks: getTasksByStageId(widget.stage.id),
+              tasks: getTasksByStageId(_stage.id),
               onChanged: () {
                 _refresh();
               },
             ),
           ),
           SizedBox(height: 10),
-          IconButton(
-            onPressed: () {
-              int taskId = addTask(widget.stage.id);
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return ModifyTitleAndDescriptionPopUp(
-                    titleController: newTaskTitleController,
-                    descriptionController: newTaskDescriptionController,
-                    onConfirm: () {
-                      changeTaskValues(
-                        taskId,
-                        title: newTaskTitleController.text,
-                        description: newTaskDescriptionController.text,
-                      );
-                      _refresh();
-                      Navigator.of(context).pop();
-                    },
-                  );
-                },
-              );
-            },
-            icon: Icon(Icons.add),
-          ),
+          // IconButton(
+          //   onPressed: () {
+          //     int taskId = addTask(_stage.id);
+          //     showDialog(
+          //       context: context,
+          //       builder: (context) {
+          //         return ModifyTitleAndDescriptionPopUp(
+          //           titleController: newTaskTitleController,
+          //           descriptionController: newTaskDescriptionController,
+          //           onConfirm: () {
+          //             changeTaskValues(
+          //               taskId,
+          //               title: newTaskTitleController.text,
+          //               description: newTaskDescriptionController.text,
+          //             );
+          //             _refresh();
+          //             Navigator.of(context).pop();
+          //           },
+          //         );
+          //       },
+          //     );
+          //   },
+          //   icon: Icon(Icons.add),
+          // ),
         ],
       ),
     );

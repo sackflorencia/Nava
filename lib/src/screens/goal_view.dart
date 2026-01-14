@@ -7,7 +7,6 @@ import 'package:nava/src/services/get_objects_and_lists.dart';
 import 'package:nava/src/widgets/add_stage_button.dart';
 import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
-import 'package:nava/src/widgets/navbar.dart';
 import 'package:nava/src/widgets/personalized_outlined_button.dart';
 import 'package:nava/src/widgets/stage_list_tile.dart';
 
@@ -44,7 +43,6 @@ class _GoalViewState extends State<GoalView> {
     late List<Stage> stages = getStagesByGoalId(_goal.id);
     return Scaffold(
       appBar: NavaAppBar(),
-      drawer: Navbar(),
       body: Center(
         child: Column(
           children: [

@@ -4,7 +4,6 @@ import 'package:nava/src/models/task.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
-import 'package:nava/src/widgets/navbar.dart';
 import 'package:nava/src/widgets/stages_dropdown.dart';
 import 'package:nava/src/widgets/task_difficulty_details.dart';
 import 'package:nava/src/widgets/task_estimated_time_details.dart';
@@ -43,7 +42,6 @@ class _TaskDetailsState extends State<TaskDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavaAppBar(),
-      drawer: Navbar(),
       body: Align(
         alignment: Alignment.topLeft,
         child: Padding(

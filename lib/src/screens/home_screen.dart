@@ -6,13 +6,11 @@ import 'package:nava/src/services/current_goals.dart';
 import 'package:nava/src/widgets/list_goal_preview.dart';
 import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
-import 'package:nava/src/widgets/navbar.dart';
 import 'package:nava/src/widgets/personalized_elevated_button.dart';
 import 'package:nava/src/widgets/personalized_text_button.dart';
 
 class HomeScreen extends StatefulWidget {
-  final String email;
-  const HomeScreen({super.key, required this.email});
+  const HomeScreen({super.key});
 
   @override
   State<HomeScreen> createState() => _HomeScreenState();
@@ -37,7 +35,6 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: NavaAppBar(),
-      drawer: Navbar(),
       body: Center(
         child: Column(
           children: [
@@ -150,9 +147,6 @@ class _HomeScreenState extends State<HomeScreen> {
       addGoal(name: goalController.text);
       setState(() {
         Navigator.of(context).pop();
-        GoRouter.of(
-          context,
-        ).go('/home', extra: ""); //TODO: cambiar el email cuando haga riverpod
         goalController.text = "";
         Fluttertoast.showToast(msg: "Ingreso exitoso!");
       });

@@ -71,7 +71,7 @@ class TaskEstimatedTimeDetails extends StatelessWidget {
                   child: Text(
                     'Tiempo estimado',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 18,
                       color: Theme.of(context).colorScheme.onInverseSurface,
                     ),
                   ),

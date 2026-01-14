@@ -32,13 +32,50 @@ class ModifyTitleAndDescriptionPopUp extends StatelessWidget {
             color: Theme.of(context).colorScheme.secondary,
           ),
           const SizedBox(height: 10),
-          if(descriptionController != null)...[
-            LittleTextField(
-            hintText: 'Descripción',
-            controller: descriptionController!,
-            color: Theme.of(context).colorScheme.secondary,
-          ),
-          const SizedBox(height: 10),
+          if (descriptionController != null) ...[
+            SizedBox(
+              height: 100,
+              child: TextField(
+                expands: true,
+                maxLines: null,
+                textAlignVertical: TextAlignVertical.top,
+                controller: descriptionController!,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onInverseSurface,
+                ),
+                decoration: InputDecoration(
+                  hintText: 'Descripción',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                  ),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.0,
+                    vertical: 8.0,
+                  ),
+                  hintStyle: TextStyle(
+                    color: Theme.of(context).colorScheme.onInverseSurface,
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.secondary,
+                    ),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8.0),
+                    borderSide: BorderSide(
+                      color: Theme.of(context).colorScheme.primary,
+                      width: 2,
+                    ),
+                  ),
+                  filled: true,
+                  fillColor: Theme.of(
+                    context,
+                  ).colorScheme.secondary.withValues(alpha: 0.2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
           ],
           Center(
             child: PersonalizedElevatedButton(

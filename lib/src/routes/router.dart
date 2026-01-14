@@ -12,7 +12,7 @@ final GoRouter router = GoRouter(
     GoRoute(path: '/', builder: (context, state) => const Account()),
     GoRoute(
       path: '/home',
-      builder: (context, state) => HomeScreen(email: state.extra as String),
+      builder: (context, state) => HomeScreen(),
     ),
     GoRoute(
       path: '/choose_goal_template',

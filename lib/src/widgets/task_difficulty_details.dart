@@ -4,8 +4,7 @@ class TaskDifficultyDetails extends StatefulWidget {
   final int taskId;
   final int? difficulty;
   final void Function(int level) onDifficultyChanged;
-  bool _isSelected = false;
-  TaskDifficultyDetails({
+  const TaskDifficultyDetails({
     super.key,
     required this.taskId,
     required this.difficulty,
@@ -17,6 +16,7 @@ class TaskDifficultyDetails extends StatefulWidget {
 }
 
 class _TaskDifficultyDetailsState extends State<TaskDifficultyDetails> {
+  bool _isSelected = false;
   @override
   Widget build(BuildContext context) {
     late String difficultyLevel;
@@ -33,9 +33,9 @@ class _TaskDifficultyDetailsState extends State<TaskDifficultyDetails> {
     }
     String buttonLabel() {
       if (widget.difficulty == null || widget.difficulty == 0) {
-        return widget._isSelected ? 'Dificultad' : 'Agregar dificultad';
+        return _isSelected ? 'Dificultad' : 'Agregar dificultad';
       }
-      if (widget._isSelected) {
+      if (_isSelected) {
         return 'Dificultad';
       }
       return 'Dificultad: $difficultyLevel';
@@ -47,7 +47,7 @@ class _TaskDifficultyDetailsState extends State<TaskDifficultyDetails> {
         TextButton.icon(
           onPressed: () {
             setState(() {
-              widget._isSelected = true;
+              _isSelected = true;
             });
           },
           label: Text(
@@ -60,7 +60,7 @@ class _TaskDifficultyDetailsState extends State<TaskDifficultyDetails> {
             backgroundColor: Theme.of(context).colorScheme.surface,
           ),
         ),
-        if (widget._isSelected)
+        if (_isSelected)
           _buildDifficultySelection(
             context,
             widget.taskId,
@@ -81,13 +81,19 @@ class _TaskDifficultyDetailsState extends State<TaskDifficultyDetails> {
       children: [
         Expanded(
           child: ChoiceChip(
-            label: Text('Fácil', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onInverseSurface),),
+            label: Text(
+              'Fácil',
+              style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onInverseSurface,
+              ),
+            ),
             selected: selectedDifficulty == 1,
             onSelected: (selected) {
               if (selected) {
                 onDifficultyChanged(1);
                 setState(() {
-                  widget._isSelected = false;
+                  _isSelected = false;
                 });
               }
             },
@@ -95,13 +101,19 @@ class _TaskDifficultyDetailsState extends State<TaskDifficultyDetails> {
         ),
         Expanded(
           child: ChoiceChip(
-            label: Text('Media', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onInverseSurface),),
+            label: Text(
+              'Media',
+              style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onInverseSurface,
+              ),
+            ),
             selected: selectedDifficulty == 2,
             onSelected: (selected) {
               if (selected) {
                 onDifficultyChanged(2);
                 setState(() {
-                  widget._isSelected = false;
+                  _isSelected = false;
                 });
               }
             },
@@ -109,13 +121,19 @@ class _TaskDifficultyDetailsState extends State<TaskDifficultyDetails> {
         ),
         Expanded(
           child: ChoiceChip(
-            label: Text('Difícil', style: TextStyle(fontSize: 16, color: Theme.of(context).colorScheme.onInverseSurface),),
+            label: Text(
+              'Difícil',
+              style: TextStyle(
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onInverseSurface,
+              ),
+            ),
             selected: selectedDifficulty == 3,
             onSelected: (selected) {
               if (selected) {
                 onDifficultyChanged(3);
                 setState(() {
-                  widget._isSelected = false;
+                  _isSelected = false;
                 });
               }
             },
