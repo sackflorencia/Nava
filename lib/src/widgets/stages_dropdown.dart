@@ -47,7 +47,7 @@ class StagesDropdown extends StatelessWidget {
       ],
       onSelected: (stage) {
         if (stage == null) return;
-        changeTaskStage(taskId, stage.id);
+        changeTaskValues(taskId, stageId: stage.id);
       },
       inputDecorationTheme: const InputDecorationTheme(
         border: InputBorder.none,

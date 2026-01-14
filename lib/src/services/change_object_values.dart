@@ -4,73 +4,31 @@ import 'package:nava/src/models/task.dart';
 import 'package:nava/src/services/current_goals.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
 
-void changeTaskTitleAndDescription(
-  int taskID,
-  String title,
-  String description,
-) {
-  final task = getTaskById(taskID);
+
+
+void changeTaskValues(int taskId, {String? title, String? description, int? estimatedMinutes, int? difficulty, bool? isCompleted, int? stageId} ){
+  final task = getTaskById(taskId);
   if (task == null) {
     return;
   }
   final updatedTask = Task(
     id: task.id,
-    title: title,
-    description: description,
-    idStage: task.idStage,
+    title: title ?? task.title,
+    description: description ?? task.description,
+    idStage: stageId ?? task.idStage,
     order: task.order,
-    estimatedMinutes: task.estimatedMinutes,
-    difficulty: task.difficulty,
-    isCompleted: task.isCompleted,
+    estimatedMinutes: estimatedMinutes ?? task.estimatedMinutes,
+    difficulty: difficulty ?? task.difficulty,
+    isCompleted: isCompleted ?? task.isCompleted,
   );
-  final index = currentTasks.indexWhere((task) => task.id == taskID);
+  final index = currentTasks.indexWhere((task) => task.id == taskId);
   if (index == -1) {
     return;
   }
   currentTasks[index] = updatedTask;
 }
-void changeTaskTitle(int taskID, String title) {
-  final task = getTaskById(taskID);
-  if (task == null) {
-    return;
-  }
-  final updatedTask = Task(
-    id: task.id,
-    title: title,
-    description: task.description,
-    idStage: task.idStage,
-    order: task.order,
-    estimatedMinutes: task.estimatedMinutes,
-    difficulty: task.difficulty,
-    isCompleted: task.isCompleted,
-  );
-  final index = currentTasks.indexWhere((task) => task.id == taskID);
-  if (index == -1) {
-    return;
-  }
-  currentTasks[index] = updatedTask;
-}
-void changeTaskDescription(int taskID, String description) {
-  final task = getTaskById(taskID);
-  if (task == null) {
-    return;
-  }
-  final updatedTask = Task(
-    id: task.id,
-    title: task.title,
-    description: description,
-    idStage: task.idStage,
-    order: task.order,
-    estimatedMinutes: task.estimatedMinutes,
-    difficulty: task.difficulty,
-    isCompleted: task.isCompleted,
-  );
-  final index = currentTasks.indexWhere((task) => task.id == taskID);
-  if (index == -1) {
-    return;
-  }
-  currentTasks[index] = updatedTask;
-}
+
+
 
 void changeGoalTitleAndDescription(
   int goalId,
@@ -101,27 +59,6 @@ void changeStageTitle(int stageId, String title) {
     return;
   }
   currentStages[index] = updatedStage;
-}
-
-void changeIsCompletedTaskValue(int taskId, bool? isCompleted) {
-  if (isCompleted == null) return;
-  final task = getTaskById(taskId);
-  if (task == null) return;
-  final updatedTask = Task(
-    id: task.id,
-    title: task.title,
-    description: task.description,
-    idStage: task.idStage,
-    order: task.order,
-    estimatedMinutes: task.estimatedMinutes,
-    difficulty: task.difficulty,
-    isCompleted: isCompleted,
-  );
-  final index = currentTasks.indexWhere((task) => task.id == taskId);
-  if (index == -1) {
-    return;
-  }
-  currentTasks[index] = updatedTask;
 }
 
 void changeTasksOrder(int taskId, int newOrder) {
@@ -225,46 +162,4 @@ void changeStagesOrderPlusOne(int goalId) {
     }
     currentStages[index] = updatedStage;
   }
-}
-
-void changeTaskStage(int taskId, int newStageId){
-  final task = getTaskById(taskId);
-  if (task == null) return;
-  final updatedTask = Task(
-    id: task.id,
-    title: task.title,
-    description: task.description,
-    idStage: newStageId,
-    order: task.order,
-    estimatedMinutes: task.estimatedMinutes,
-    difficulty: task.difficulty,
-    isCompleted: task.isCompleted,
-  );
-  final index = currentTasks.indexWhere((task2) => task2.id == taskId);
-  if (index == -1) {
-    return;
-  }
-  currentTasks[index] = updatedTask;
-}
-void changeTaskEstimatedMinutes(int taskId, int? estimatedMinutes){
-  final task = getTaskById(taskId);
-  if (task == null) return;
-  if(estimatedMinutes != null && estimatedMinutes < 0){
-    return;
-  }
-  final updatedTask = Task(
-    id: task.id,
-    title: task.title,
-    description: task.description,
-    idStage: task.idStage,
-    order: task.order,
-    estimatedMinutes: estimatedMinutes,
-    difficulty: task.difficulty,
-    isCompleted: task.isCompleted,
-  );
-  final index = currentTasks.indexWhere((task2) => task2.id == taskId);
-  if (index == -1) {
-    return;
-  }
-  currentTasks[index] = updatedTask;
 }

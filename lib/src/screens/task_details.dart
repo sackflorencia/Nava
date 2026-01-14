@@ -77,7 +77,7 @@ class _TaskDetailsState extends State<TaskDetails> {
                   setState(() {
                     _task = _task.copyWith(title: taskTitleController.text);
                   });
-                  changeTaskTitle(_task.id, taskTitleController.text);
+                  changeTaskValues(_task.id, title: taskTitleController.text);
                 },
               ),
               TextField(
@@ -104,11 +104,14 @@ class _TaskDetailsState extends State<TaskDetails> {
                 maxLines: null,
                 onChanged: (value) {
                   setState(() {
-                    _task =
-                        _task.copyWith(description: taskDescriptionController.text);
+                    _task = _task.copyWith(
+                      description: taskDescriptionController.text,
+                    );
                   });
-                  changeTaskDescription(
-                      _task.id, taskDescriptionController.text);
+                  changeTaskValues(
+                    _task.id,
+                    description: taskDescriptionController.text,
+                  );
                 },
               ),
               TaskEstimatedTimeDetails(
@@ -118,10 +121,19 @@ class _TaskDetailsState extends State<TaskDetails> {
                   setState(() {
                     _task = _task.copyWith(estimatedMinutes: minutes);
                   });
-                  changeTaskEstimatedMinutes(_task.id, minutes);
+                  changeTaskValues(_task.id, estimatedMinutes: minutes);
                 },
               ),
-              TaskDifficultyDetails(taskId: _task.id, difficulty: _task.difficulty, onDifficultyChanged: (int level){})
+              TaskDifficultyDetails(
+                taskId: _task.id,
+                difficulty: _task.difficulty,
+                onDifficultyChanged: (int level) {
+                  changeTaskValues(_task.id, difficulty: level);
+                  setState(() {
+                    _task = _task.copyWith(difficulty: level);
+                  });
+                },
+              ),
             ],
           ),
         ),

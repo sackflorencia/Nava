@@ -83,7 +83,7 @@ class _TaskListTileState extends State<TaskListTile> {
                     value: _isChecked,
                     onChanged: (bool? newValue) {
                       if (newValue == null) return;
-                      changeIsCompletedTaskValue(widget.task.id, newValue);
+                      changeTaskValues(widget.task.id, isCompleted: newValue);
                       setState(() {
                         _isChecked = newValue;
                       });
@@ -95,6 +95,7 @@ class _TaskListTileState extends State<TaskListTile> {
                       color: Theme.of(context).colorScheme.onInverseSurface,
                       width: 2,
                     ),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   ),
                 ),
                 const SizedBox(width: 3),

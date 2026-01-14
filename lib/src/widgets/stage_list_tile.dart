@@ -73,10 +73,10 @@ class _StageListTileState extends State<StageListTile> {
                     titleController: newTaskTitleController,
                     descriptionController: newTaskDescriptionController,
                     onConfirm: () {
-                      changeTaskTitleAndDescription(
+                      changeTaskValues(
                         taskId,
-                        newTaskTitleController.text,
-                        newTaskDescriptionController.text,
+                        title: newTaskTitleController.text,
+                        description: newTaskDescriptionController.text,
                       );
                       _refresh();
                       Navigator.of(context).pop();
