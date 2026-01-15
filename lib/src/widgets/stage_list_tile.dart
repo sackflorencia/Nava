@@ -3,6 +3,7 @@ import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/services/add_objects.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
+import 'package:nava/src/theme/theme_utils.dart';
 import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 import 'package:nava/src/widgets/tasks_list.dart';
 
@@ -43,65 +44,94 @@ class _StageListTileState extends State<StageListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 350,
-      margin: EdgeInsets.all(8),
-      padding: EdgeInsets.all(12),
-      color: Theme.of(context).colorScheme.surfaceContainerHighest,
-      child: Column(
-        children: [
-          TextField(
-            controller: stageTitleController,
-            decoration: InputDecoration(border: InputBorder.none),
-            style: TextStyle(
-              fontSize: 19,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).colorScheme.onSurface,
-            ),
-            onChanged: (value) {
-              changeStageTitle(_stage.id, value);
-              setState(() {
-                _stage = _stage.copyWith(title: value);
-              });
-            },
-            textAlign: TextAlign.center,
+    return Stack(
+      clipBehavior: Clip.none,
+      children: [
+        Container(
+          width: 350,
+          margin: EdgeInsets.all(8),
+          padding: EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+          color: Theme.of(context).colorScheme.surfaceContainerHighest,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 40,
+                child: TextField(
+                  textInputAction: TextInputAction.done,
+                  controller: stageTitleController,
+                  decoration: InputDecoration(border: InputBorder.none),
+                  style: TextStyle(
+                    fontSize: 19,
+                    fontWeight: FontWeight.w600,
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
+                  onChanged: (value) {
+                    changeStageTitle(_stage.id, value);
+                    setState(() {
+                      _stage = _stage.copyWith(title: value);
+                    });
+                  },
+                  textAlign: TextAlign.center,
+                ),
+              ),
+              SizedBox(height: 10),
+              Expanded(
+                child: TasksList(
+                  tasks: getTasksByStageId(_stage.id),
+                  onChanged: () {
+                    _refresh();
+                  },
+                ),
+              ),
+            ],
           ),
-          SizedBox(height: 10),
-          Expanded(
-            child: TasksList(
-              tasks: getTasksByStageId(_stage.id),
-              onChanged: () {
-                _refresh();
-              },
+        ),
+        Positioned(
+          right: 20,
+          bottom: 20,
+          child: Material(
+            color: Colors.transparent,
+            elevation: 4,
+            shape: const CircleBorder(),
+            child: CircleAvatar(
+              radius: 20,
+              backgroundColor: lighten(
+                Theme.of(context).colorScheme.primary,
+                0.5,
+              ),
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                icon: Icon(
+                  Icons.add,
+                  color: Theme.of(context).colorScheme.primary,
+                  size: 21,
+                ),
+                onPressed: () {
+                  int taskId = addTask(_stage.id);
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return ModifyTitleAndDescriptionPopUp(
+                        titleController: newTaskTitleController,
+                        descriptionController: newTaskDescriptionController,
+                        onConfirm: () {
+                          changeTaskValues(
+                            taskId,
+                            title: newTaskTitleController.text,
+                            description: newTaskDescriptionController.text,
+                          );
+                          _refresh();
+                          Navigator.of(context).pop();
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
             ),
           ),
-          SizedBox(height: 10),
-          // IconButton(
-          //   onPressed: () {
-          //     int taskId = addTask(_stage.id);
-          //     showDialog(
-          //       context: context,
-          //       builder: (context) {
-          //         return ModifyTitleAndDescriptionPopUp(
-          //           titleController: newTaskTitleController,
-          //           descriptionController: newTaskDescriptionController,
-          //           onConfirm: () {
-          //             changeTaskValues(
-          //               taskId,
-          //               title: newTaskTitleController.text,
-          //               description: newTaskDescriptionController.text,
-          //             );
-          //             _refresh();
-          //             Navigator.of(context).pop();
-          //           },
-          //         );
-          //       },
-          //     );
-          //   },
-          //   icon: Icon(Icons.add),
-          // ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

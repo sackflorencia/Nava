@@ -26,7 +26,20 @@ Stage? getCurrentStage(int goalId){
   return currentStage;
 }
 
-int getTasksLeftInStage(int goalId){
+List<Task> getTasksLeftInStage(int stageId){
+  final stage = getStageById(stageId);
+  if(stage == null) return [];
+  List<Task> tasks = getTasksByStageId(stage.id);
+  List<Task> tasksLeft = [];
+  for(Task task in tasks){
+    if(!task.isCompleted){
+      tasksLeft.add(task);
+    }
+  }
+  return tasksLeft;
+}
+
+int getTaskLeftInCurrentStage(int goalId){
   final currentStage = getCurrentStage(goalId);
   if(currentStage == null) return -1;
   int tasksLeft = 0;

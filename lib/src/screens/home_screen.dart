@@ -3,6 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/services/add_objects.dart';
 import 'package:nava/src/services/current_goals.dart';
+import 'package:nava/src/theme/theme_utils.dart';
 import 'package:nava/src/widgets/list_goal_preview.dart';
 import 'package:nava/src/widgets/little_textfield.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
@@ -39,16 +40,17 @@ class _HomeScreenState extends State<HomeScreen> {
         child: Column(
           children: [
             Padding(
-              padding: const EdgeInsets.all(8),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
               child: SizedBox(
                 width: double.infinity,
                 height: 60,
                 child: ElevatedButton(
                   onPressed: () => openDialog(),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(
-                      context,
-                    ).colorScheme.surfaceContainerHighest,
+                    backgroundColor: lighten(
+                      Theme.of(context).colorScheme.primary,
+                      0.5,
+                    ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(14),
@@ -65,13 +67,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         "Agregar nuevo objetivo",
                         style: TextStyle(
                           fontSize: 23,
-                          color: Theme.of(context).colorScheme.onSurface,
+                          color: Theme.of(context).colorScheme.onInverseSurface,
                         ),
                       ),
                       Icon(
                         Icons.add,
                         size: 30,
-                        color: Theme.of(context).colorScheme.onSurface,
+                        color: Theme.of(context).colorScheme.onInverseSurface,
                       ),
                     ],
                   ),

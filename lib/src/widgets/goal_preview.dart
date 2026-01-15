@@ -11,7 +11,7 @@ class GoalPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Stage? currentStage = getCurrentStage(goal.id);
-    final int tasksLeft = getTasksLeftInStage(goal.id);
+    final int tasksLeft = getTaskLeftInCurrentStage(goal.id);
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(

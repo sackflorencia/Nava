@@ -5,9 +5,7 @@ import 'package:nava/src/services/add_objects.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
 import 'package:nava/src/widgets/add_stage_button.dart';
-import 'package:nava/src/widgets/modify_title_and_description_pop_up.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
-import 'package:nava/src/widgets/personalized_outlined_button.dart';
 import 'package:nava/src/widgets/stage_list_tile.dart';
 
 class GoalView extends StatefulWidget {
@@ -27,8 +25,8 @@ class _GoalViewState extends State<GoalView> {
   void initState() {
     super.initState();
     _goal = _goal;
-    goalTitleController = TextEditingController();
-    goalDescriptionController = TextEditingController();
+    goalTitleController = TextEditingController(text: _goal.title);
+    goalDescriptionController = TextEditingController(text: _goal.description);
   }
 
   @override
@@ -46,57 +44,47 @@ class _GoalViewState extends State<GoalView> {
       body: Center(
         child: Column(
           children: [
-            Text(
-              _goal.title,
+            SizedBox(
+              height: 25,
+              child: TextField(
+                textInputAction: TextInputAction.done,
+                controller: goalTitleController,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onInverseSurface,
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(border: InputBorder.none),
+                onChanged: (title) {
+                  changeGoalValues(_goal.id, title: title);
+                  setState(() {
+                    _goal = _goal.copyWith(title: title);
+                  });
+                },
+              ),
+            ),
+            SizedBox(height: 5),
+            TextField(
+              maxLines: null,
+              textAlignVertical: TextAlignVertical.top,
+              controller: goalDescriptionController,
               style: TextStyle(
                 color: Theme.of(context).colorScheme.onInverseSurface,
-                fontSize: 20,
+                fontSize: 18,
               ),
               textAlign: TextAlign.center,
-            ),
-            Text(
-              _goal.description,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onInverseSurface,
-                fontSize: 14,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(height: 8),
-            PersonalizedOutlinedButton(
-              text: 'Editar',
-              onPressed: () {
-                goalDescriptionController.text = _goal.description;
-                goalTitleController.text = _goal.title;
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return ModifyTitleAndDescriptionPopUp(
-                      descriptionController: goalDescriptionController,
-                      onConfirm: () {
-                        setState(() {
-                          changeGoalTitleAndDescription(
-                            _goal.id,
-                            goalTitleController.text,
-                            goalDescriptionController.text,
-                          );
-                          _goal = _goal.copyWith(
-                            title: goalTitleController.text,
-                            description: goalDescriptionController.text,
-                          );
-                        });
-                        Navigator.of(context).pop();
-                      },
-                      titleController: goalTitleController,
-                    );
-                  },
-                );
+              decoration: InputDecoration(border: InputBorder.none),
+              onChanged: (description) {
+                changeGoalValues(_goal.id, description: description);
+                setState(() {
+                  _goal = _goal.copyWith(description: description);
+                });
               },
-              foregroundColor: Theme.of(context).colorScheme.onInverseSurface,
             ),
             SizedBox(height: 10),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.75,
+              height: MediaQuery.of(context).size.height * 0.78,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: stages.length + 1,

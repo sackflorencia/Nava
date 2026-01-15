@@ -28,16 +28,14 @@ void changeTaskValues(int taskId, {String? title, String? description, int? esti
   currentTasks[index] = updatedTask;
 }
 
-
-
-void changeGoalTitleAndDescription(
-  int goalId,
-  String title,
-  String description,
-) {
+void changeGoalValues(int goalId, {String? title, String? description}) {
   final goal = getGoalById(goalId);
   if (goal == null) return;
-  final updatedGoal = Goal(id: goal.id, title: title, description: description);
+  final updatedGoal = Goal(
+    id: goal.id,
+    title: title ?? goal.title,
+    description: description ?? goal.description,
+  );
   final index = currentGoals.indexWhere((goal) => goal.id == goalId);
   if (index == -1) {
     return;
