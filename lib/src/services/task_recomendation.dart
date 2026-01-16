@@ -3,7 +3,7 @@ import 'package:nava/src/models/task.dart';
 import 'package:nava/src/services/get_tasks_left_in_stage.dart';
 import 'dart:math';
 
-Task? taskRecommendation(int goalId, int energy) {
+Task? taskRecommendation(int goalId, double energy) {
   Stage? currentStage = getCurrentStage(goalId);
   if (currentStage == null) {
     return null;
@@ -65,7 +65,7 @@ double energyCost(Task task){
   return timeCost + difficultyCost;
 }
 
-int obtainAvailableEnergy(int energy){
+int obtainAvailableEnergy(double energy){
   if(energy == 1){
     return 3;
   }else if(energy == 2){

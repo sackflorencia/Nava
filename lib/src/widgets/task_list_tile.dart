@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/theme/theme_utils.dart';
 import 'package:nava/src/services/change_object_values.dart';
+import 'package:nava/src/widgets/nava_confetti.dart';
 
 class TaskListTile extends StatefulWidget {
   final Task task;
@@ -86,6 +87,9 @@ class _TaskListTileState extends State<TaskListTile> {
                       changeTaskValues(widget.task.id, isCompleted: newValue);
                       setState(() {
                         _isChecked = newValue;
+                        if (newValue == true) {
+                          showConfettiOverlay(context);
+                        }
                       });
                       widget.onChanged();
                     },

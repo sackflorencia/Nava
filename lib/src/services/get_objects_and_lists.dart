@@ -60,3 +60,14 @@ List<Stage> getStagesByTaskId(int taskId){
   }
   return getStagesByGoalId(stage.idGoal);
 }
+Goal? getGoalByTaskId(int taskId){
+  Task? task = getTaskById(taskId);
+  if(task == null){
+    return null;
+  }
+  Stage? stage = getStageById(task.idStage);
+  if(stage == null){
+    return null;
+  }
+  return getGoalById(stage.idGoal);
+}

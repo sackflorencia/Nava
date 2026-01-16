@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:nava/src/models/goal.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
@@ -55,7 +56,9 @@ class _TaskDetailsState extends State<TaskDetails> {
                   color: Theme.of(context).colorScheme.onInverseSurface,
                 ),
                 onPressed: () {
-                  context.pop();
+                  late Goal goal;
+                  goal = getGoalByTaskId(_task.id)!;
+                  GoRouter.of(context).go('/goal_view', extra: goal);
                 },
               ),
               StagesDropdown(
