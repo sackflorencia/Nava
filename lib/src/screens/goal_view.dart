@@ -4,9 +4,11 @@ import 'package:nava/src/models/stage.dart';
 import 'package:nava/src/services/add_objects.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
+import 'package:nava/src/theme/theme_utils.dart';
 import 'package:nava/src/widgets/add_stage_button.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/stage_list_tile.dart';
+import 'package:nava/src/widgets/task_recommendation_dialog.dart';
 
 class GoalView extends StatefulWidget {
   final Goal goal;
@@ -20,6 +22,7 @@ class _GoalViewState extends State<GoalView> {
   late Goal _goal = widget.goal;
   late final TextEditingController goalTitleController;
   late final TextEditingController goalDescriptionController;
+  bool _dialogShown = false;
 
   @override
   void initState() {
@@ -27,6 +30,12 @@ class _GoalViewState extends State<GoalView> {
     _goal = _goal;
     goalTitleController = TextEditingController(text: _goal.title);
     goalDescriptionController = TextEditingController(text: _goal.description);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!_dialogShown) {
+        _dialogShown = true;
+        _showTaskRecommendationDialog();
+      }
+    });
   }
 
   @override
@@ -65,22 +74,25 @@ class _GoalViewState extends State<GoalView> {
               ),
             ),
             SizedBox(height: 5),
-            TextField(
-              maxLines: null,
-              textAlignVertical: TextAlignVertical.top,
-              controller: goalDescriptionController,
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.onInverseSurface,
-                fontSize: 18,
+            SizedBox(
+              height: 60,
+              child: TextField(
+                maxLines: null,
+                textAlignVertical: TextAlignVertical.top,
+                controller: goalDescriptionController,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onInverseSurface,
+                  fontSize: 18,
+                ),
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(border: InputBorder.none),
+                onChanged: (description) {
+                  changeGoalValues(_goal.id, description: description);
+                  setState(() {
+                    _goal = _goal.copyWith(description: description);
+                  });
+                },
               ),
-              textAlign: TextAlign.center,
-              decoration: InputDecoration(border: InputBorder.none),
-              onChanged: (description) {
-                changeGoalValues(_goal.id, description: description);
-                setState(() {
-                  _goal = _goal.copyWith(description: description);
-                });
-              },
             ),
             SizedBox(height: 10),
             SizedBox(
@@ -103,9 +115,46 @@ class _GoalViewState extends State<GoalView> {
                 },
               ),
             ),
+            ElevatedButton(
+              onPressed: () {
+                setState(() {
+                  _showTaskRecommendationDialog();
+                });
+              },
+              style: ElevatedButton.styleFrom(
+                //backgroundColor: color,
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                minimumSize: Size(250, 35),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25)),
+                ),
+                backgroundColor: lighten(
+                  Theme.of(context).colorScheme.surfaceContainerHighest,
+                  0.4,
+                ),
+              ),
+              child: Text(
+                "Recomendar tarea",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.onInverseSurface,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18
+                ),
+              ),
+            ),
           ],
         ),
       ),
+    );
+  }
+
+  void _showTaskRecommendationDialog() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return TaskRecommendationDialog(goalId: _goal.id);
+      },
     );
   }
 }

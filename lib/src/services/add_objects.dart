@@ -35,6 +35,8 @@ void addGoal({GoalTemplate? goal, required String name}) {
             title: task.title,
             description: task.description,
             order: task.order,
+            estimatedMinutes: task.estimatedMinutes,
+            difficulty: task.difficulty,
           ),
         );
       }
