@@ -122,7 +122,6 @@ class _GoalViewState extends State<GoalView> {
                 });
               },
               style: ElevatedButton.styleFrom(
-                //backgroundColor: color,
                 padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
                 minimumSize: Size(250, 35),
                 shape: const RoundedRectangleBorder(
