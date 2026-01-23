@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/task.dart';
 import 'package:nava/src/theme/theme_utils.dart';
 import 'package:nava/src/services/change_object_values.dart';
+import 'package:nava/src/utils/drag_scroll_manager.dart';
 import 'package:nava/src/widgets/nava_confetti.dart';
 
 class TaskListTile extends StatefulWidget {
@@ -50,11 +51,46 @@ class _TaskListTileState extends State<TaskListTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: lighten(
-        Theme.of(context).colorScheme.surfaceContainerHighest,
-        0.07,
+    return LongPressDraggable<Task>(
+      data: widget.task,
+      feedback: IgnorePointer(
+        child: Material(
+          color: Colors.transparent,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(14),
+            bottomRight: Radius.circular(14),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 300),
+            child: _buildTile(context, isDragging: true),
+          ),
+        ),
       ),
+
+      childWhenDragging: Opacity(opacity: 0.3, child: _buildTile(context)),
+      child: _buildTile(context),
+      onDragStarted: () {
+        DragScrollManager.instance.start();
+      },
+      onDragUpdate: (details) {
+        DragScrollManager.instance.update(details.globalPosition, context);
+      },
+
+      onDragEnd: (_) {
+        DragScrollManager.instance.stop();
+      },
+    );
+  }
+
+  Widget _buildTile(BuildContext context, {bool isDragging = false}) {
+    return Material(
+      color: isDragging
+          ? lighten(Theme.of(context).colorScheme.surfaceContainerHighest, 0.15)
+          : lighten(
+              Theme.of(context).colorScheme.surfaceContainerHighest,
+              0.07,
+            ),
       borderRadius: BorderRadius.only(
         topLeft: Radius.circular(14),
         topRight: Radius.circular(0),

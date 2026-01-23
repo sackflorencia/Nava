@@ -5,6 +5,7 @@ import 'package:nava/src/services/add_objects.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/services/get_objects_and_lists.dart';
 import 'package:nava/src/theme/theme_utils.dart';
+import 'package:nava/src/utils/drag_scroll_manager.dart';
 import 'package:nava/src/widgets/add_stage_button.dart';
 import 'package:nava/src/widgets/nava_app_bar.dart';
 import 'package:nava/src/widgets/stage_list_tile.dart';
@@ -22,6 +23,7 @@ class _GoalViewState extends State<GoalView> {
   late Goal _goal = widget.goal;
   late final TextEditingController goalTitleController;
   late final TextEditingController goalDescriptionController;
+  final ScrollController _stageScrollController = ScrollController();
   bool _dialogShown = false;
 
   @override
@@ -36,12 +38,14 @@ class _GoalViewState extends State<GoalView> {
         _showTaskRecommendationDialog();
       }
     });
+    DragScrollManager.instance.attach(_stageScrollController);
   }
 
   @override
   void dispose() {
     goalTitleController.dispose();
     goalDescriptionController.dispose();
+    _stageScrollController.dispose();
     super.dispose();
   }
 
@@ -98,6 +102,7 @@ class _GoalViewState extends State<GoalView> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.78,
               child: ListView.builder(
+                controller: _stageScrollController,
                 scrollDirection: Axis.horizontal,
                 itemCount: stages.length + 1,
                 itemBuilder: (context, index) {

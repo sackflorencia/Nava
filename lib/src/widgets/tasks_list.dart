@@ -24,35 +24,65 @@ class _TasksListState extends State<TasksList> {
     return sorted;
   }
 
+  void _handleDrop(Task task, int newIndex) {
+    if (task.order == newIndex) return;
+
+    changeTasksOrder(task.id, newIndex);
+    widget.onChanged();
+  }
   @override
   Widget build(BuildContext context) {
-    final sortedTasks = _sortedTasks();
-    return ReorderableListView.builder(
-      itemCount: sortedTasks.length,
-      shrinkWrap: true,
+    final List<Task> tasks = _sortedTasks();
+
+    return ListView.builder(
+      itemCount: tasks.length + 1,
       itemBuilder: (context, index) {
-        return Column(
-          key: ValueKey(sortedTasks[index].id),
-          children: [
-            TaskListTile(
-              task: sortedTasks[index],
-              onChanged: widget.onChanged,
-              index: index
-            ),
-            SizedBox(height: 10),
-          ],
+        // DragTarget ENTRE tasks
+        if (index < tasks.length) {
+          final targetTask = tasks[index];
+
+          return DragTarget<Task>(
+            onWillAcceptWithDetails: (_) => true,
+            onAcceptWithDetails: (details) {
+              final task = details.data;
+              _handleDrop(task, targetTask.order);
+            },
+            builder: (context, candidateData, _) {
+              return Column(
+                children: [
+                  if (candidateData.isNotEmpty)
+                    Container(
+                      height: 6,
+                      margin: const EdgeInsets.symmetric(vertical: 4),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context)
+                            .colorScheme
+                            .primary
+                            .withAlpha(150),
+                        borderRadius: BorderRadius.circular(3),
+                      ),
+                    ),
+                  TaskListTile(
+                    task: targetTask,
+                    index: index,
+                    onChanged: widget.onChanged,
+                  ),
+                  const SizedBox(height: 10),
+                ],
+              );
+            },
+          );
+        }
+
+        // DragTarget final (drop al final)
+        return DragTarget<Task>(
+          onWillAcceptWithDetails: (_) => true,
+          onAcceptWithDetails: (details) {
+            final task = details.data;
+            _handleDrop(task, tasks.length);
+          },
+          builder: (_, _, _) => const SizedBox(height: 40),
         );
-      },
-      onReorder: (oldIndex, newIndex) {
-        if (newIndex > oldIndex) newIndex -= 1;
-
-        final movedTask = sortedTasks[oldIndex];
-        final newOrder = sortedTasks[newIndex].order;
-
-        setState(() {
-          changeTasksOrder(movedTask.id, newOrder);
-          widget.onChanged();
-        });
       },
     );
   }
