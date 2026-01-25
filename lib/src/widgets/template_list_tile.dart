@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nava/src/models/goal_template.dart';
 import 'package:nava/src/services/add_objects.dart';
-import 'package:nava/src/widgets/confirmation_pop_up.dart';
+import 'package:nava/src/widgets/goal_template_preview.dart';
 import 'package:string_to_icon/string_to_icon.dart';
 
 class TemplateListTile extends StatelessWidget {
@@ -55,10 +55,9 @@ class TemplateListTile extends StatelessWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (context) => ConfirmationPopUp(
-              message:
-                  '¿Estas seguro de que querés agregar el objetivo $goalName con la plantilla ${template.title}?',
-              onpressed: () {
+            builder: (context) => GoalTemplatePreview(
+              goalTemplate: template,
+              onAccepted: () {
                 addGoal(name: goalName, goal: template);
                 GoRouter.of(context).go(
                   '/home',

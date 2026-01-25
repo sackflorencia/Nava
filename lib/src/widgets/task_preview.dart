@@ -26,7 +26,7 @@ class TaskPreview extends StatelessWidget {
             GoRouter.of(context).go('/task_details', extra: task!);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Theme.of(context).colorScheme.surface,
+            backgroundColor: Colors.white,
             elevation: 0,
           ),
           child: Padding(

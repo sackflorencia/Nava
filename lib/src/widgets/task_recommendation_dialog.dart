@@ -73,6 +73,8 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
 
   Widget _buildSelection() {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         IconButton(
           onPressed: () => Navigator.of(context).pop(),

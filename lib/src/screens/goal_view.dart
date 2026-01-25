@@ -100,7 +100,7 @@ class _GoalViewState extends State<GoalView> {
             ),
             SizedBox(height: 10),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.78,
+              height: MediaQuery.of(context).size.height * 0.73,
               child: ListView.builder(
                 controller: _stageScrollController,
                 scrollDirection: Axis.horizontal,
