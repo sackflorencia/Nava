@@ -19,7 +19,7 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
   Widget build(BuildContext context) {
     return Dialog(
       child: SizedBox(
-        height: MediaQuery.of(context).size.height * 0.6,
+        height: MediaQuery.of(context).size.height * 0.52,
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: energyLevel != null
@@ -43,20 +43,23 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
         if (recommendedTask != null) ...[
           Icon(
             Icons.celebration,
-            size: 120,
+            size: 90,
             color: Theme.of(context).colorScheme.primary,
           ),
           Text(
             "Encontramos una tarea para vos!",
             style: TextStyle(
-              fontSize: 27,
+              fontSize: 25,
               fontWeight: FontWeight.bold,
               color: Theme.of(context).colorScheme.onInverseSurface,
             ),
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 15),
-          TaskPreview(taskId: recommendedTask!.id),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: TaskPreview(taskId: recommendedTask!.id),
+          ),
         ] else
           Text(
             "No encontramos ninguna tarea para recomendarte.",
@@ -73,7 +76,6 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
 
   Widget _buildSelection() {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         IconButton(
@@ -83,25 +85,36 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
             color: Theme.of(context).colorScheme.onInverseSurface,
           ),
         ),
+        SizedBox(height: 15),
         Text(
           "¿Cuánta energía tenés hoy?",
           style: TextStyle(
-            fontSize: 24,
+            fontSize: 26,
             fontWeight: FontWeight.bold,
             color: Theme.of(context).colorScheme.onInverseSurface,
           ),
           textAlign: TextAlign.center,
         ),
+        SizedBox(height: 30),
         Column(
           children: [
             ChoiceChip(
-              label: Text(
-                'Mucha',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.onInverseSurface,
+              label: SizedBox(
+                width: 120,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    'Mucha',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
+              padding: EdgeInsets.zero,
               selected: energyLevel == 3,
               onSelected: (selected) {
                 setState(() {
@@ -109,13 +122,26 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
                   recommendedTask = taskRecommendation(widget.goalId, 3);
                 });
               },
+              backgroundColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest,
             ),
+            SizedBox(height: 8),
             ChoiceChip(
-              label: Text(
-                'Media',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.onInverseSurface,
+              padding: EdgeInsets.zero,
+              label: SizedBox(
+                width: 120,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    'Media',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
               selected: energyLevel == 2,
@@ -125,13 +151,26 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
                   recommendedTask = taskRecommendation(widget.goalId, 2);
                 });
               },
+              backgroundColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest,
             ),
+            SizedBox(height: 8),
             ChoiceChip(
-              label: Text(
-                'Baja',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Theme.of(context).colorScheme.onInverseSurface,
+              padding: EdgeInsets.zero,
+              label: SizedBox(
+                width: 120,
+                height: 50,
+                child: Center(
+                  child: Text(
+                    'Baja',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.onSurface,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
                 ),
               ),
               selected: energyLevel == 1,
@@ -141,9 +180,13 @@ class _TaskRecommendationDialogState extends State<TaskRecommendationDialog> {
                   recommendedTask = taskRecommendation(widget.goalId, 1);
                 });
               },
+              backgroundColor: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest,
             ),
           ],
         ),
+        SizedBox(height: 30),
         Text(
           "En base a tu energía, te recomendaremos una tarea.",
           style: TextStyle(

@@ -60,7 +60,10 @@ void showTaskCompletedOverlay(BuildContext context, int taskId) {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    TaskPreview(taskId: taskId, isLinked: false,),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                      child: TaskPreview(taskId: taskId, isLinked: false,),
+                    ),
 
                   ],
                 ),
