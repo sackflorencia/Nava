@@ -4,7 +4,7 @@ import 'package:nava/src/models/task.dart';
 import 'package:nava/src/theme/theme_utils.dart';
 import 'package:nava/src/services/change_object_values.dart';
 import 'package:nava/src/utils/drag_scroll_manager.dart';
-import 'package:nava/src/widgets/nava_confetti.dart';
+import 'package:nava/src/widgets/checked_task_overlay.dart';
 
 class TaskListTile extends StatefulWidget {
   final Task task;
@@ -124,7 +124,7 @@ class _TaskListTileState extends State<TaskListTile> {
                       setState(() {
                         _isChecked = newValue;
                         if (newValue == true) {
-                          showConfettiOverlay(context);
+                          showTaskCompletedOverlay(context, widget.task.id);
                         }
                       });
                       widget.onChanged();

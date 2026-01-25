@@ -5,7 +5,8 @@ import 'package:nava/src/services/get_objects_and_lists.dart';
 
 class TaskPreview extends StatelessWidget {
   final int taskId;
-  const TaskPreview({super.key, required this.taskId});
+  final bool isLinked;
+  const TaskPreview({super.key, required this.taskId, this.isLinked = true});
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +23,18 @@ class TaskPreview extends StatelessWidget {
           color: Theme.of(context).colorScheme.surface,
         ),
         child: ElevatedButton(
-          onPressed: () {
-            GoRouter.of(context).go('/task_details', extra: task!);
-          },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.white,
-            elevation: 0,
+          onPressed: isLinked
+              ? () {
+                  GoRouter.of(context).go('/task_details', extra: task!);
+                }
+              : null,
+          style: ButtonStyle(
+            backgroundColor: WidgetStateProperty.all(
+              Theme.of(context).colorScheme.onPrimary,
+            ),
+            elevation: WidgetStateProperty.all(0),
+            overlayColor: WidgetStateProperty.all(Colors.transparent),
+            shadowColor: WidgetStateProperty.all(Colors.transparent),
           ),
           child: Padding(
             padding: const EdgeInsets.all(12.0),

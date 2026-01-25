@@ -63,6 +63,7 @@ class _TasksListState extends State<TasksList> {
                       ),
                     ),
                   TaskListTile(
+                    key: ValueKey(targetTask.id),
                     task: targetTask,
                     index: index,
                     onChanged: widget.onChanged,
@@ -74,7 +75,6 @@ class _TasksListState extends State<TasksList> {
           );
         }
 
-        // DragTarget final (drop al final)
         return DragTarget<Task>(
           onWillAcceptWithDetails: (_) => true,
           onAcceptWithDetails: (details) {
