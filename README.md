@@ -1,34 +1,72 @@
-# 🌟 Nava  
-**Tu guía diaria para avanzar en tus metas según tu energía real.**
+# Nava
 
-Nava es una aplicación diseñada para acompañar a las personas en sus objetivos personales de una forma simple, flexible y humana. Parte de un problema real: no todos los días tenemos la misma energía, motivación o claridad mental. Por eso Nava propone un sistema que se adapta a vos, no al revés.
+Nava es una aplicación móvil desarrollada como proyecto de aprendizaje en Flutter. La idea del proyecto es ayudar a las personas a organizar metas personales adaptando las actividades sugeridas según su nivel de energía diario. Además de permitir gestionar objetivos, la aplicación incorpora plantillas predefinidas para distintos intereses y habilidades, facilitando que los usuarios transformen metas generales en pasos concretos cuando no saben por dónde comenzar.
 
+## Funcionalidades
 
-## 🚀 Características principales
+La aplicación incluye actualmente:
 
-### 🔥 Energía diaria
-- El usuario indica su nivel de energía del día.  
-- Nava adapta las tareas sugeridas según cómo te sentís.
+- Registro manual del nivel de energía diario
+- Creación de metas personales
+- Organización de objetivos mediante subtareas
+- Recomendación de actividades según energía y prioridad
+- Plantillas de objetivos predefinidas para distintos intereses y habilidades
+- Descomposición de metas complejas en pasos concretos y alcanzables
+- Visualización del progreso de las metas
+- Interfaz móvil desarrollada en Flutter
 
-### 🎯 Gestión de metas
-- Creación de metas personales a corto, mediano y largo plazo.  
-- Subtareas y pasos concretos para avanzar sin abrumarse.
+## Tecnologías utilizadas
 
-### 📅 Organización simple
-- Vista clara y minimalista del día.  
-- Lista de recomendaciones inteligentes basada en la energía + prioridades.
+La aplicación fue desarrollada utilizando:
 
-### 📈 Progreso realista
-- Registro suave del avance sin presión.  
-- Estadísticas simples que muestran constancia, no perfección.
+* Flutter
+* Dart
 
-## 🧭 Filosofía detrás del proyecto
+## Instalación
 
-Nava nace de la necesidad de una herramienta realista y amable, que te acompañe sin exigencias imposibles. En vez de forzar productividad, Nava respeta los ritmos personales y sugiere el tipo óptimo de actividades según el nivel de energía diario.
+Clonar el repositorio:
 
-**La idea:** _"No importa cuánto avances, sino que puedas avanzar hoy."_
+```bash
+git clone https://github.com/sackflorencia/Nava.git
+```
 
-## 🛠️ Tecnologías utilizadas
-- **Flutter** – desarrollo multiplataforma
-- **Dart** – lógica de la aplicación  
-- **Firebase** – base de datos, auth y almacenamiento 
+Entrar a la carpeta del proyecto:
+
+```bash
+cd nava
+```
+
+Instalar dependencias:
+
+```bash
+flutter pub get
+```
+
+## Ejecución
+
+Iniciar la aplicación en modo desarrollo:
+
+```bash
+flutter run
+```
+
+Para verificar los dispositivos disponibles:
+
+```bash
+flutter devices
+```
+
+## Próximas mejoras
+
+* Persistencia de datos mediante base de datos local o remota
+* Generación automática de tareas sugeridas utilizando IA
+* Integración con calendarios externos
+* Sistema de recordatorios inteligentes
+* Seguimiento de bienestar y estado de ánimo
+* Estadísticas avanzadas de hábitos y productividad
+* Sincronización multidispositivo
+* Modo colaborativo para metas compartidas
+
+## Autor
+
+Desarrollado por Florencia Sack.
